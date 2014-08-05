@@ -7,8 +7,13 @@
 //
 
 #import "BTXViewController.h"
+#import "BTXMesh.h"
+#import "BTXAppDelegate.h"
 
 @interface BTXViewController ()
+
+@property BTXMesh* mesh;
+
 
 @end
 
@@ -18,6 +23,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    BTXAppDelegate* appDelegate = (BTXAppDelegate *)[[UIApplication sharedApplication] delegate];
+    _mesh = appDelegate.mesh;
+}
+
+- (IBAction)onSendPressed:(id)sender {
+    NSData* data = [[self.textField text] dataUsingEncoding:NSUTF8StringEncoding];
+    [self.mesh sendDataForChannel:@"#all" data:data];
 }
 
 - (void)didReceiveMemoryWarning

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		861A1B3E199072790003B5DC /* BTXBroadcastBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 861A1B3D199072790003B5DC /* BTXBroadcastBuffer.m */; };
 		86A75BE319859333003178EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A75BE219859333003178EF /* Foundation.framework */; };
 		86A75BE519859333003178EF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A75BE419859333003178EF /* CoreGraphics.framework */; };
 		86A75BE719859333003178EF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A75BE619859333003178EF /* UIKit.framework */; };
@@ -21,6 +22,14 @@
 		86A75C0419859333003178EF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A75BE619859333003178EF /* UIKit.framework */; };
 		86A75C0C19859333003178EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86A75C0A19859333003178EF /* InfoPlist.strings */; };
 		86A75C0E19859333003178EF /* BlueTeethTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75C0D19859333003178EF /* BlueTeethTests.m */; };
+		86A75CA2198594C6003178EF /* BTXPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CA1198594C6003178EF /* BTXPeripheralManager.m */; };
+		86A75CA5198596EC003178EF /* BTXCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CA4198596EC003178EF /* BTXCentralManager.m */; };
+		86A75CAC1985C0DC003178EF /* BTXClientServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CAB1985C0DC003178EF /* BTXClientServer.m */; };
+		86A75CBC1985F00B003178EF /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CBA1985F00B003178EF /* BLE.m */; };
+		86DC9048198DC1E500086DA8 /* BTXPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC9047198DC1E500086DA8 /* BTXPeer.m */; };
+		86DC904B198DC4A200086DA8 /* BTXMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC904A198DC4A200086DA8 /* BTXMesh.m */; };
+		86DC904E198DD84A00086DA8 /* BTXPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC904D198DD84A00086DA8 /* BTXPayload.m */; };
+		9B5B21EECC1B42F4988FE7DA /* libPods-BlueTeeth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE38F24608C4CB8BA956339 /* libPods-BlueTeeth.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		16EA922D3C564B72B828AA14 /* Pods-BlueTeeth.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlueTeeth.xcconfig"; path = "Pods/Pods-BlueTeeth.xcconfig"; sourceTree = "<group>"; };
+		861A1B3C199072790003B5DC /* BTXBroadcastBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXBroadcastBuffer.h; sourceTree = "<group>"; };
+		861A1B3D199072790003B5DC /* BTXBroadcastBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXBroadcastBuffer.m; sourceTree = "<group>"; };
 		86A75BDF19859333003178EF /* BlueTeeth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueTeeth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A75BE219859333003178EF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		86A75BE419859333003178EF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,6 +65,23 @@
 		86A75C0919859333003178EF /* BlueTeethTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlueTeethTests-Info.plist"; sourceTree = "<group>"; };
 		86A75C0B19859333003178EF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		86A75C0D19859333003178EF /* BlueTeethTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueTeethTests.m; sourceTree = "<group>"; };
+		86A75CA0198594C6003178EF /* BTXPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTXPeripheralManager.h; path = BlueTeeth/BTXPeripheralManager.h; sourceTree = "<group>"; };
+		86A75CA1198594C6003178EF /* BTXPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTXPeripheralManager.m; path = BlueTeeth/BTXPeripheralManager.m; sourceTree = "<group>"; };
+		86A75CA3198596EC003178EF /* BTXCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTXCentralManager.h; path = BlueTeeth/BTXCentralManager.h; sourceTree = "<group>"; };
+		86A75CA4198596EC003178EF /* BTXCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTXCentralManager.m; path = BlueTeeth/BTXCentralManager.m; sourceTree = "<group>"; };
+		86A75CA7198597A2003178EF /* BTXShared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXShared.h; sourceTree = "<group>"; };
+		86A75CAA1985C0DC003178EF /* BTXClientServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXClientServer.h; sourceTree = "<group>"; };
+		86A75CAB1985C0DC003178EF /* BTXClientServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXClientServer.m; sourceTree = "<group>"; };
+		86A75CB91985F00B003178EF /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
+		86A75CBA1985F00B003178EF /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
+		86A75CBB1985F00B003178EF /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		86DC9046198DC1E500086DA8 /* BTXPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPeer.h; sourceTree = "<group>"; };
+		86DC9047198DC1E500086DA8 /* BTXPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXPeer.m; sourceTree = "<group>"; };
+		86DC9049198DC4A200086DA8 /* BTXMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXMesh.h; sourceTree = "<group>"; };
+		86DC904A198DC4A200086DA8 /* BTXMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXMesh.m; sourceTree = "<group>"; };
+		86DC904C198DD84A00086DA8 /* BTXPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPayload.h; sourceTree = "<group>"; };
+		86DC904D198DD84A00086DA8 /* BTXPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXPayload.m; sourceTree = "<group>"; };
+		8EE38F24608C4CB8BA956339 /* libPods-BlueTeeth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlueTeeth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +92,7 @@
 				86A75BE519859333003178EF /* CoreGraphics.framework in Frameworks */,
 				86A75BE719859333003178EF /* UIKit.framework in Frameworks */,
 				86A75BE319859333003178EF /* Foundation.framework in Frameworks */,
+				9B5B21EECC1B42F4988FE7DA /* libPods-BlueTeeth.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,10 +112,13 @@
 		86A75BD619859333003178EF = {
 			isa = PBXGroup;
 			children = (
+				86A75CB81985F00B003178EF /* BLE */,
+				86A75CA61985977E003178EF /* BTX */,
 				86A75BE819859333003178EF /* BlueTeeth */,
 				86A75C0719859333003178EF /* BlueTeethTests */,
 				86A75BE119859333003178EF /* Frameworks */,
 				86A75BE019859333003178EF /* Products */,
+				16EA922D3C564B72B828AA14 /* Pods-BlueTeeth.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +138,7 @@
 				86A75BE419859333003178EF /* CoreGraphics.framework */,
 				86A75BE619859333003178EF /* UIKit.framework */,
 				86A75C0119859333003178EF /* XCTest.framework */,
+				8EE38F24608C4CB8BA956339 /* libPods-BlueTeeth.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -152,6 +186,38 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		86A75CA61985977E003178EF /* BTX */ = {
+			isa = PBXGroup;
+			children = (
+				86A75CA0198594C6003178EF /* BTXPeripheralManager.h */,
+				86A75CA1198594C6003178EF /* BTXPeripheralManager.m */,
+				86A75CA3198596EC003178EF /* BTXCentralManager.h */,
+				86A75CA4198596EC003178EF /* BTXCentralManager.m */,
+				86A75CA7198597A2003178EF /* BTXShared.h */,
+				86A75CAA1985C0DC003178EF /* BTXClientServer.h */,
+				86A75CAB1985C0DC003178EF /* BTXClientServer.m */,
+				86DC9046198DC1E500086DA8 /* BTXPeer.h */,
+				86DC9047198DC1E500086DA8 /* BTXPeer.m */,
+				86DC9049198DC4A200086DA8 /* BTXMesh.h */,
+				86DC904A198DC4A200086DA8 /* BTXMesh.m */,
+				86DC904C198DD84A00086DA8 /* BTXPayload.h */,
+				86DC904D198DD84A00086DA8 /* BTXPayload.m */,
+				861A1B3C199072790003B5DC /* BTXBroadcastBuffer.h */,
+				861A1B3D199072790003B5DC /* BTXBroadcastBuffer.m */,
+			);
+			name = BTX;
+			sourceTree = "<group>";
+		};
+		86A75CB81985F00B003178EF /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				86A75CB91985F00B003178EF /* BLE.h */,
+				86A75CBA1985F00B003178EF /* BLE.m */,
+				86A75CBB1985F00B003178EF /* BLEDefines.h */,
+			);
+			path = BLE;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -159,9 +225,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 86A75C1119859333003178EF /* Build configuration list for PBXNativeTarget "BlueTeeth" */;
 			buildPhases = (
+				D0F9685C1D164E14A7E12F61 /* Check Pods Manifest.lock */,
 				86A75BDB19859333003178EF /* Sources */,
 				86A75BDC19859333003178EF /* Frameworks */,
 				86A75BDD19859333003178EF /* Resources */,
+				A185EA3361BE4A9F92617DCC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -200,6 +268,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = sefbkn;
 				TargetAttributes = {
+					86A75BDE19859333003178EF = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					86A75BFF19859333003178EF = {
 						TestTargetID = 86A75BDE19859333003178EF;
 					};
@@ -245,13 +320,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A185EA3361BE4A9F92617DCC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-BlueTeeth-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D0F9685C1D164E14A7E12F61 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		86A75BDB19859333003178EF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86A75CA2198594C6003178EF /* BTXPeripheralManager.m in Sources */,
+				86A75CA5198596EC003178EF /* BTXCentralManager.m in Sources */,
+				86DC904B198DC4A200086DA8 /* BTXMesh.m in Sources */,
 				86A75BEF19859333003178EF /* main.m in Sources */,
 				86A75BF919859333003178EF /* BTXViewController.m in Sources */,
+				861A1B3E199072790003B5DC /* BTXBroadcastBuffer.m in Sources */,
+				86A75CBC1985F00B003178EF /* BLE.m in Sources */,
+				86A75CAC1985C0DC003178EF /* BTXClientServer.m in Sources */,
+				86DC9048198DC1E500086DA8 /* BTXPeer.m in Sources */,
+				86DC904E198DD84A00086DA8 /* BTXPayload.m in Sources */,
 				86A75BF319859333003178EF /* BTXAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,6 +490,7 @@
 		};
 		86A75C1219859333003178EF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16EA922D3C564B72B828AA14 /* Pods-BlueTeeth.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -387,6 +504,7 @@
 		};
 		86A75C1319859333003178EF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16EA922D3C564B72B828AA14 /* Pods-BlueTeeth.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -457,6 +575,7 @@
 				86A75C1319859333003178EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		86A75C1419859333003178EF /* Build configuration list for PBXNativeTarget "BlueTeethTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +584,7 @@
 				86A75C1619859333003178EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

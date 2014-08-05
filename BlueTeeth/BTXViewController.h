@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface BTXViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextField *textField;
 
 @end
