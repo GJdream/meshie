@@ -30,6 +30,7 @@ NSInteger _chunkSize;
         _chunkSize = chunkSize;
         _createdOn = [NSDate date];
     }
+    
     return self;
 }
 

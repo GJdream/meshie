@@ -10,12 +10,4 @@
 
 @implementation BTXPeer
 
--(BOOL) isInRange {
-    //if(!self.peripheral) return FALSE;
-    
-    //return (self.peripheral.state == CBPeripheralStateConnected);
-    
-    return FALSE;
-}
-
 @end

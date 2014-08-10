@@ -5,10 +5,12 @@
 //  Created by Youssef Boukenken on 7/27/14.
 //  Copyright (c) 2014 sefbkn. All rights reserved.
 //
-
+#import "BTXReceiveBuffer.h"
 #import "BTXClientServer.h"
 
 @interface BTXClientServer() <BTXPCDelegate>
+
+@property BTXReceiveBuffer* receiveBuffer;
 
 @end
 
@@ -18,6 +20,7 @@
     self = [super init];
     if(self) {
         [self initClientServer];
+        self.receiveBuffer = [[BTXReceiveBuffer alloc] initWithChunkSize:20];
     }
     
     return self;
@@ -78,7 +81,14 @@
         fromPeripheral:(CBPeripheral*) peripheral {
     // Create peer id if not exists.
     // Look up peer by peripheral id
-    //
+    
+    NSString* key = [peripheral.identifier UUIDString];
+    
+    BOOL bufferComplete = [self.receiveBuffer bufferData:data forKey:key];
+    if(bufferComplete) {
+        NSData* d = [self.receiveBuffer dataForKey:key];
+        [self handlePayloadFromData:d];
+    }
 }
 
 // Returns data sent from the central to the current peripehral.
@@ -86,6 +96,30 @@
            fromCentral: (CBCentral*) central {
     // Create peer id.
     // Lookup peer by central id.
+    
+    NSString* key = [central.identifier UUIDString];
+    
+    BOOL bufferComplete = [self.receiveBuffer bufferData:data forKey:key];
+    if(bufferComplete) {
+        NSData* d = [self.receiveBuffer dataForKey:key];
+        [self handlePayloadFromData:d];
+    }
+}
+
+-(void) handlePayloadFromData: (NSData*) data {
+    NSError* error;
+    BTXPayload* payload = [[BTXPayload alloc] initWithData:data error:&error];
+    if(error) {
+        NSLog(@"Error: %@", error);
+    }
+    
+    NSLog(@"Data recieved from either central or peripheral: %@", payload.data);
+    if(!payload) return;
+    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onPayloadReceived:)]) {
+        [self.delegate onPayloadReceived:payload];
+    }
+
 }
 
 @end

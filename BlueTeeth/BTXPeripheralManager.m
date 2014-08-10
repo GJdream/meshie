@@ -67,7 +67,6 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(onDataReceived:fromCentral:)]) {
         [self.delegate onDataReceived:data fromCentral:central];
     }
-    NSLog(@"Peripheral: Received Data = %@", d);
 }
 
 -(void) peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {

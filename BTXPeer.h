@@ -12,7 +12,4 @@
 
 @property (strong, nonatomic) NSString* identifier;
 
-// Returns whether or not the peer is within range
--(BOOL) isInRange;
-
 @end

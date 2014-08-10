@@ -19,4 +19,6 @@
 -(NSData*) peekData;
 -(void) seek;
 
++(NSData*) getTerminatingPatternForSize:(NSInteger) size;
+
 @end

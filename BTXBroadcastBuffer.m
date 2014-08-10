@@ -19,18 +19,22 @@
 
 @implementation BTXBroadcastBuffer
 
++(NSData*) getTerminatingPatternForSize:(NSInteger) size {
+    NSMutableData* data = [[NSMutableData alloc] init];
+    unsigned char zeroByte = 255;
+    
+    for(int i = 0; i < size; i++)
+        [data appendBytes:&zeroByte length:1];
+    return data;
+}
+
 -(instancetype) initWithChunkSize:(NSInteger) size {
     self = [super init];
     if(self) {
         self.hasQueuedData = false;
         self.queuedData = [[NSMutableArray alloc] init];
         
-        NSMutableData* data = [[NSMutableData alloc] init];
-        unsigned char zeroByte = 255;
-        
-        for(int i = 0; i < size; i++)
-            [data appendBytes:&zeroByte length:1];
-        self.terminatingPattern = data;
+        self.terminatingPattern = [BTXBroadcastBuffer getTerminatingPatternForSize:size];
         self.chunkSize = size;
     }
     

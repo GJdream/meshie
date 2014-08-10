@@ -40,7 +40,7 @@
                           characteristicUUID:(NSString *)characteristicUUID {
     self.serviceUUID = serviceUUID;
     self.characteristicUUID = characteristicUUID;
-    dispatch_queue_t centralQueue = dispatch_queue_create("com.yo.mycentral", DISPATCH_QUEUE_SERIAL);// or however you want to create your dispatch_queue_t
+    dispatch_queue_t centralQueue = dispatch_queue_create("com.sbkn.centralqueue", DISPATCH_QUEUE_SERIAL);
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:centralQueue];
 }
 
@@ -207,13 +207,9 @@
         return;
     }
     
-    NSString* str = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-    
     if(self.delegate && [self.delegate respondsToSelector:@selector(onDataReceived:fromPeripheral:)]) {
         [self.delegate onDataReceived:characteristic.value fromPeripheral:peripheral];
     }
-    
-    NSLog(@"Central: Recieved %@", str);
 }
 
 /*

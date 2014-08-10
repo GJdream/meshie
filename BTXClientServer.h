@@ -10,11 +10,14 @@
 #import "BTXPeripheralManager.h"
 #import "BTXCentralManager.h"
 #import "BTXPayload.h"
+#import "BTXCSDelegate.h"
 
 @interface BTXClientServer : NSObject {
     BTXPeripheralManager* btxPeripheralManager;
     BTXCentralManager* btxCentralManager;
 }
+
+@property (nonatomic, weak) id <BTXCSDelegate> delegate;
 
 @property NSArray* messageCache;
 

@@ -37,11 +37,6 @@
 // If the peer is connected as a peripheral, retain the object right here.
 @property (strong, nonatomic) BTXClientServer* btxClientServer;
 
-// Needs to have a delegate in the future.
--(void) onDataReceivedFromPeer: (BTXPeer*) peer
-                       channel: (NSString*) channel
-                          data: (NSData*) data;
-
 -(void) sendDataForChannel:(NSString *)channel data:(NSData *)data;
 
 

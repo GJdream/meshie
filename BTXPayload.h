@@ -15,12 +15,12 @@
 // The type of packet received.
 // Certain packets are not propogated through network
 // Certain types are...
-@property NSInteger t;
-@property (strong, nonatomic) NSString* id;
+@property NSInteger type;
+@property (strong, nonatomic) NSString* uid;
 
-@property (strong, nonatomic) NSString* p; // peer id
-@property (strong, nonatomic) NSString* m; // mesh name / channel
+@property (strong, nonatomic) NSString* peerid; // peer id
+@property (strong, nonatomic) NSString* mesh; // mesh name / channel
 @property (strong, nonatomic) NSDate* ts; // timestamp w/ timezone.
-@property (strong, nonatomic) NSString* d; // data.... text message maybe
+@property (strong, nonatomic) NSString* data; // data.... text message maybe
 
 @end
