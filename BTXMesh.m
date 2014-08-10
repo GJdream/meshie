@@ -25,15 +25,15 @@
     BTXPayload* payload = [[BTXPayload alloc] init];
     
     payload.ts = [NSDate date];
-    payload.data = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    payload.d = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     [self.btxClientServer broadcastPayload:payload];
 }
 
-
 -(void) onDataReceivedFromPeer:(BTXPeer *)peer
                        channel:(NSString *)channel
                           data:(NSData *)data {
+    
     NSLog(@"From %@, Channel %@, Data %@", peer.identifier, channel, data);
 }
 

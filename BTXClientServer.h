@@ -18,7 +18,6 @@
 
 @property NSArray* messageCache;
 
--(void) messageReceived: (void (^)()) onMessageReceived;
 -(void) broadcastPayload: (BTXPayload*) payload;
 
 @end

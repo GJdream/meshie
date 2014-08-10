@@ -19,5 +19,4 @@
 #define MSH_SERVICE_UUID                    @"713d0000-503e-4c75-ba94-3148f18d941e"
 #define MSH_TX_UUID                         @"713d0003-503e-4c75-ba94-3148f18d941e"
 
-
 @end

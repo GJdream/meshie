@@ -16,11 +16,11 @@
 // Certain packets are not propogated through network
 // Certain types are...
 @property NSInteger t;
-@property (strong, nonatomic) NSString* pid;
+@property (strong, nonatomic) NSString* id;
 
-@property (strong, nonatomic) NSString* peer_id;
-@property (strong, nonatomic) NSString* mesh_id;
+@property (strong, nonatomic) NSString* p; // peer id
+@property (strong, nonatomic) NSString* m; // mesh name / channel
 @property (strong, nonatomic) NSDate* ts; // timestamp w/ timezone.
-@property (strong, nonatomic) NSString* data; // data.... text message maybe
+@property (strong, nonatomic) NSString* d; // data.... text message maybe
 
 @end

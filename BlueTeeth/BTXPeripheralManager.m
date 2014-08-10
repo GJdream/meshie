@@ -7,8 +7,13 @@
 //
 
 #import "BTXPeripheralManager.h"
+#import "BTXGroupedBroadcastBuffer.h"
 
 @interface BTXPeripheralManager()
+
+@property (nonatomic, strong) BTXGroupedBroadcastBuffer* broadcastBuffer;
+
+@property NSMutableArray* centrals;
 
 @property NSString* serviceUUID;
 @property NSString* characteristicUUID;
@@ -18,12 +23,8 @@
 @implementation BTXPeripheralManager
 
 -(id) init {
-    self = [super init];
-    if(self) {
-        NSLog(@"Call initWithServiceUUID");
-    }
-    
-    return self;
+    NSLog(@"Call initWithServiceUUID");
+    return nil;
 }
 
 -(instancetype) initWithServiceUUID:(NSString *)serviceUUID
@@ -31,8 +32,10 @@
     self = [super init];
     if(self) {
         [self initPeripheralManagerWithServiceUUID:serviceUUID characteristicUUID:characteristicUUID];
-        self.broadcastBuffer = [[BTXBroadcastBuffer alloc] initWithChunkSize:20];
+        self.broadcastBuffer = [[BTXGroupedBroadcastBuffer alloc] initWithChunkSize:20];
+        self.centrals = [[NSMutableArray alloc] init];
     }
+    
     return self;
 }
 
@@ -51,6 +54,22 @@
     [self.peripheralManager stopAdvertising];
 }
 
+-(void) peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests {
+    CBATTRequest *aRequest = requests[0];
+    NSData *aData = aRequest.value;
+    NSString* d = [[NSString alloc] initWithData:aData encoding:NSUTF8StringEncoding];
+    
+    [peripheral respondToRequest:[requests objectAtIndex:0] withResult:CBATTErrorSuccess];
+    
+    NSData* data = aRequest.value;
+    CBCentral* central = aRequest.central;
+    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onDataReceived:fromCentral:)]) {
+        [self.delegate onDataReceived:data fromCentral:central];
+    }
+    NSLog(@"Peripheral: Received Data = %@", d);
+}
+
 -(void) peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
     if(peripheral.state != CBPeripheralManagerStatePoweredOn) {
         NSLog(@"Peripheral state not powered on!");
@@ -58,7 +77,10 @@
     }
     
     if(peripheral.state == CBPeripheralManagerStatePoweredOn) {
-        self.transferCharacteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:self.characteristicUUID] properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsReadable];
+        self.transferCharacteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:self.characteristicUUID]
+                                                                         properties:(CBCharacteristicPropertyNotify | CBCharacteristicPropertyWrite)
+                                                                              value:nil
+                                                                        permissions:CBAttributePermissionsWriteable | CBAttributePermissionsReadable];
         
         CBMutableService* service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:self.serviceUUID] primary:YES];
 
@@ -71,29 +93,38 @@
     }
 }
 
+
 -(void) peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
-    NSLog(@"Connected");
+    NSLog(@"Peripheral: Connected to central");
+    [self.centrals addObject:central];
+    
     [self.peripheralManager setDesiredConnectionLatency:CBPeripheralManagerConnectionLatencyLow forCentral:central];
     
     // Create broadcast object...
     // buffer data out until complete.
-    
-    [self.broadcastBuffer enqueueData:[@"TEST" dataUsingEncoding:NSUTF8StringEncoding]];
-    [self flushBroadcastBuffer];
+    [self broadcastData:[@"TEST" dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 -(void) peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic {
     NSLog(@"Central unsubscribed from peripheral");
+    [self.centrals removeObject:central];
+}
+
+-(void) broadcastData: (NSData*) data {
+    [self.broadcastBuffer enqueueData:data forKey:@"ALL"];
+    [self flushBroadcastBuffer];
 }
 
 -(void) flushBroadcastBuffer {
-    while (self.broadcastBuffer.hasQueuedData) {
-        NSData* d = [self.broadcastBuffer peekData];
+    if(self.transferCharacteristic == nil) return;
+    
+    while ([self.broadcastBuffer hasDataForKey:@"ALL"]) {
+        NSData* d = [self.broadcastBuffer peekDataForKey:@"ALL"];
         BOOL isSuccess = [self.peripheralManager updateValue:d forCharacteristic:self.transferCharacteristic onSubscribedCentrals:nil];
         
         if(isSuccess) {
             // If we successfully sent this chunk of data, then dequeue it and try to send next batch of data, if any.
-            [self.broadcastBuffer markDequeued];
+            [self.broadcastBuffer markDequeuedForKey:@"ALL"];
         } else {
             // Otherwise, return and wait to be triggered again by peripheralManagerIsReadyToUpdateSubscribers
             return;

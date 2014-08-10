@@ -17,6 +17,6 @@
 
 -(void) enqueueData: (NSData*) data;
 -(NSData*) peekData;
--(void) markDequeued;
+-(void) seek;
 
 @end

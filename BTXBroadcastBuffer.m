@@ -47,6 +47,7 @@
     self.hasQueuedData = true;
 }
 
+// Returns up to the top N bytes in the current element in the array.
 -(NSData*) peekData {
     NSInteger available = [self getAvailableCount];
     NSInteger take = self.chunkSize < available ? self.chunkSize : available;
@@ -54,14 +55,14 @@
     if(!self.hasQueuedData || take == 0) return nil;
     
     NSData* currentItem = self.queuedData[0];
-    
     NSData* chunk = [NSData dataWithBytesNoCopy:(char *)[currentItem bytes] + self.currentOffset
                                          length:take
                                    freeWhenDone:NO];
     return chunk;
 }
 
--(void) markDequeued {
+// Advances the buffer pointer
+-(void) seek {
     if(!self.hasQueuedData) return;
     
     NSInteger available = [self getAvailableCount];
@@ -78,6 +79,7 @@
     self.hasQueuedData = self.queuedData.count;
 }
 
+// Get the amount of data left in the current array item.
 -(NSInteger) getAvailableCount {
     if([self.queuedData count] == 0) {
         return 0;

@@ -26,6 +26,7 @@
 		86A75CA5198596EC003178EF /* BTXCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CA4198596EC003178EF /* BTXCentralManager.m */; };
 		86A75CAC1985C0DC003178EF /* BTXClientServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CAB1985C0DC003178EF /* BTXClientServer.m */; };
 		86A75CBC1985F00B003178EF /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CBA1985F00B003178EF /* BLE.m */; };
+		86B705651991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B705641991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.m */; };
 		86DC9048198DC1E500086DA8 /* BTXPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC9047198DC1E500086DA8 /* BTXPeer.m */; };
 		86DC904B198DC4A200086DA8 /* BTXMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC904A198DC4A200086DA8 /* BTXMesh.m */; };
 		86DC904E198DD84A00086DA8 /* BTXPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC904D198DD84A00086DA8 /* BTXPayload.m */; };
@@ -75,12 +76,15 @@
 		86A75CB91985F00B003178EF /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		86A75CBA1985F00B003178EF /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 		86A75CBB1985F00B003178EF /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		86B705631991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXGroupedBroadcastBuffer.h; sourceTree = "<group>"; };
+		86B705641991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXGroupedBroadcastBuffer.m; sourceTree = "<group>"; };
 		86DC9046198DC1E500086DA8 /* BTXPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPeer.h; sourceTree = "<group>"; };
 		86DC9047198DC1E500086DA8 /* BTXPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXPeer.m; sourceTree = "<group>"; };
 		86DC9049198DC4A200086DA8 /* BTXMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXMesh.h; sourceTree = "<group>"; };
 		86DC904A198DC4A200086DA8 /* BTXMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXMesh.m; sourceTree = "<group>"; };
 		86DC904C198DD84A00086DA8 /* BTXPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPayload.h; sourceTree = "<group>"; };
 		86DC904D198DD84A00086DA8 /* BTXPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXPayload.m; sourceTree = "<group>"; };
+		86EC899D19972D7900CE3BE6 /* BTXPCDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPCDelegate.h; sourceTree = "<group>"; };
 		8EE38F24608C4CB8BA956339 /* libPods-BlueTeeth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlueTeeth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -204,6 +208,9 @@
 				86DC904D198DD84A00086DA8 /* BTXPayload.m */,
 				861A1B3C199072790003B5DC /* BTXBroadcastBuffer.h */,
 				861A1B3D199072790003B5DC /* BTXBroadcastBuffer.m */,
+				86B705631991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.h */,
+				86B705641991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.m */,
+				86EC899D19972D7900CE3BE6 /* BTXPCDelegate.h */,
 			);
 			name = BTX;
 			sourceTree = "<group>";
@@ -369,6 +376,7 @@
 				86DC9048198DC1E500086DA8 /* BTXPeer.m in Sources */,
 				86DC904E198DD84A00086DA8 /* BTXPayload.m in Sources */,
 				86A75BF319859333003178EF /* BTXAppDelegate.m in Sources */,
+				86B705651991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

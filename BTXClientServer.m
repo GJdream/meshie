@@ -8,6 +8,10 @@
 
 #import "BTXClientServer.h"
 
+@interface BTXClientServer() <BTXPCDelegate>
+
+@end
+
 @implementation BTXClientServer
 
 -(id) init {
@@ -25,49 +29,63 @@
 
 -(void) initClientServer {
     
-#if TARGET_OS_IPHONE
+//#if !TARGET_OS_IPHONE
     // Initialize self as peripheral.
     if (!btxPeripheralManager) {
         btxPeripheralManager = [[BTXPeripheralManager alloc] initWithServiceUUID:MSH_SERVICE_UUID characteristicUUID:MSH_TX_UUID];
+        btxPeripheralManager.delegate = self;
     }
     
-#else
+//#else
     // Initialize self as central.
     if(!btxCentralManager) {
-        btxCentralManager = [[BTXCentralManager alloc] init];
+        btxCentralManager = [[BTXCentralManager alloc] initWithServiceUUID:MSH_SERVICE_UUID characteristicUUID:MSH_TX_UUID];
+        btxCentralManager.delegate = self;
+        
     }
-#endif
+    
+    
+//#endif
+    
 }
 
-
-
--(void) tick: (NSTimer*) timer {
-    //[self writeDataToPeripheral:nil];
-}
-
--(void) preventNewConnections {
+-(void) pauseDiscoveryAndBroadcasts {
     // Prevent connections.
+    return;
     [btxCentralManager.centralManager stopScan];
     [btxPeripheralManager.peripheralManager stopAdvertising];
 }
 
--(void) allowNewConnections {
+-(void) resumeDiscoveryAndBroadcasts {
     
 }
 
 // Broadcast data to currently connected peripherals.
 // Broadcast data to currently connected centrals.
 -(void) broadcastPayload: (BTXPayload*) payload {
-    [self preventNewConnections];
-    
     // Serialize to json.
     NSString* json = [payload toJSONString];
     
-    // Create broadcast object...
-    // buffer data out until complete.
+    // Broadcast data to all connected peripheral.
+    [btxCentralManager broadcastData:[json dataUsingEncoding:NSUTF8StringEncoding]];
     
-    [btxPeripheralManager.broadcastBuffer enqueueData:[json dataUsingEncoding:NSUTF8StringEncoding]];
-    [btxPeripheralManager flushBroadcastBuffer];
+    // Broadcast data to all connected centrals.
+    [btxPeripheralManager broadcastData:[json dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
+// Returns data sent from the connected peripheral to this central.
+-(void) onDataReceived:(NSData*) data
+        fromPeripheral:(CBPeripheral*) peripheral {
+    // Create peer id if not exists.
+    // Look up peer by peripheral id
+    //
+}
+
+// Returns data sent from the central to the current peripehral.
+-(void) onDataReceived: (NSData*) data
+           fromCentral: (CBCentral*) central {
+    // Create peer id.
+    // Lookup peer by central id.
 }
 
 @end
