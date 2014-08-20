@@ -56,9 +56,6 @@
 
 -(void) peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests {
     CBATTRequest *aRequest = requests[0];
-    NSData *aData = aRequest.value;
-    NSString* d = [[NSString alloc] initWithData:aData encoding:NSUTF8StringEncoding];
-    
     [peripheral respondToRequest:[requests objectAtIndex:0] withResult:CBATTErrorSuccess];
     
     NSData* data = aRequest.value;
@@ -99,9 +96,12 @@
     
     [self.peripheralManager setDesiredConnectionLatency:CBPeripheralManagerConnectionLatencyLow forCentral:central];
     
+    
     // Create broadcast object...
     // buffer data out until complete.
-    [self broadcastData:[@"TEST" dataUsingEncoding:NSUTF8StringEncoding]];
+    //[self broadcastData:[@"TEST" dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [self.delegate onConnectionEstablishedWithCentral:central];
 }
 
 -(void) peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic {

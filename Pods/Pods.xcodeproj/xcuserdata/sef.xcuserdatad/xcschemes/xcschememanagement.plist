@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-BlueTeeth-JSQMessagesViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-BlueTeeth-JSQSystemSoundPlayer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-BlueTeeth.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>D65E52BAF1F041398A0E375C</key>
+		<key>296A025DE7B94333A52B0420</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FD8AAE91A2BD4F13AD6994B5</key>
+		<key>A3277B395DA342E1B5F51C26</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A62F2EA6042B4AFC96BCE25D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B79D49FB11A94D57ACE57088</key>
 		<dict>
 			<key>primary</key>
 			<true/>

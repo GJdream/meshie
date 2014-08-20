@@ -26,11 +26,11 @@
 		86A75CA2198594C6003178EF /* BTXPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CA1198594C6003178EF /* BTXPeripheralManager.m */; };
 		86A75CA5198596EC003178EF /* BTXCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CA4198596EC003178EF /* BTXCentralManager.m */; };
 		86A75CAC1985C0DC003178EF /* BTXClientServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CAB1985C0DC003178EF /* BTXClientServer.m */; };
-		86A75CBC1985F00B003178EF /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A75CBA1985F00B003178EF /* BLE.m */; };
 		86B705651991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B705641991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.m */; };
-		86DC9048198DC1E500086DA8 /* BTXPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC9047198DC1E500086DA8 /* BTXPeer.m */; };
+		86DC9048198DC1E500086DA8 /* BTXNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC9047198DC1E500086DA8 /* BTXNode.m */; };
 		86DC904B198DC4A200086DA8 /* BTXMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC904A198DC4A200086DA8 /* BTXMesh.m */; };
 		86DC904E198DD84A00086DA8 /* BTXPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC904D198DD84A00086DA8 /* BTXPayload.m */; };
+		86F66F1B199EE68600A74A00 /* BTXChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F66F1A199EE68600A74A00 /* BTXChatViewController.m */; };
 		9B5B21EECC1B42F4988FE7DA /* libPods-BlueTeeth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE38F24608C4CB8BA956339 /* libPods-BlueTeeth.a */; };
 /* End PBXBuildFile section */
 
@@ -46,11 +46,13 @@
 
 /* Begin PBXFileReference section */
 		16EA922D3C564B72B828AA14 /* Pods-BlueTeeth.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlueTeeth.xcconfig"; path = "Pods/Pods-BlueTeeth.xcconfig"; sourceTree = "<group>"; };
+		86151CBC199C480600D7E635 /* BTXPayloadType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPayloadType.h; sourceTree = "<group>"; };
 		861A1B3C199072790003B5DC /* BTXBroadcastBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXBroadcastBuffer.h; sourceTree = "<group>"; };
 		861A1B3D199072790003B5DC /* BTXBroadcastBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXBroadcastBuffer.m; sourceTree = "<group>"; };
 		861CD5551997CB5000730F50 /* BTXReceiveBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXReceiveBuffer.h; sourceTree = "<group>"; };
 		861CD5561997CB5000730F50 /* BTXReceiveBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXReceiveBuffer.m; sourceTree = "<group>"; };
 		861CD55B1997D2ED00730F50 /* BTXCSDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXCSDelegate.h; sourceTree = "<group>"; };
+		8628105919A41EAE0025245E /* BTXMeshDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTXMeshDelegate.h; sourceTree = "<group>"; };
 		86A75BDF19859333003178EF /* BlueTeeth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueTeeth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A75BE219859333003178EF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		86A75BE419859333003178EF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -77,18 +79,17 @@
 		86A75CA7198597A2003178EF /* BTXShared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXShared.h; sourceTree = "<group>"; };
 		86A75CAA1985C0DC003178EF /* BTXClientServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXClientServer.h; sourceTree = "<group>"; };
 		86A75CAB1985C0DC003178EF /* BTXClientServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXClientServer.m; sourceTree = "<group>"; };
-		86A75CB91985F00B003178EF /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
-		86A75CBA1985F00B003178EF /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
-		86A75CBB1985F00B003178EF /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
 		86B705631991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXGroupedBroadcastBuffer.h; sourceTree = "<group>"; };
 		86B705641991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXGroupedBroadcastBuffer.m; sourceTree = "<group>"; };
-		86DC9046198DC1E500086DA8 /* BTXPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPeer.h; sourceTree = "<group>"; };
-		86DC9047198DC1E500086DA8 /* BTXPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXPeer.m; sourceTree = "<group>"; };
+		86DC9046198DC1E500086DA8 /* BTXNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXNode.h; sourceTree = "<group>"; };
+		86DC9047198DC1E500086DA8 /* BTXNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXNode.m; sourceTree = "<group>"; };
 		86DC9049198DC4A200086DA8 /* BTXMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXMesh.h; sourceTree = "<group>"; };
 		86DC904A198DC4A200086DA8 /* BTXMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXMesh.m; sourceTree = "<group>"; };
 		86DC904C198DD84A00086DA8 /* BTXPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPayload.h; sourceTree = "<group>"; };
 		86DC904D198DD84A00086DA8 /* BTXPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXPayload.m; sourceTree = "<group>"; };
 		86EC899D19972D7900CE3BE6 /* BTXPCDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPCDelegate.h; sourceTree = "<group>"; };
+		86F66F19199EE68600A74A00 /* BTXChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXChatViewController.h; sourceTree = "<group>"; };
+		86F66F1A199EE68600A74A00 /* BTXChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXChatViewController.m; sourceTree = "<group>"; };
 		8EE38F24608C4CB8BA956339 /* libPods-BlueTeeth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlueTeeth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -120,8 +121,8 @@
 		86A75BD619859333003178EF = {
 			isa = PBXGroup;
 			children = (
-				86A75CB81985F00B003178EF /* BLE */,
 				86A75CA61985977E003178EF /* BTX */,
+				86F66F13199EE45B00A74A00 /* Views */,
 				86A75BE819859333003178EF /* BlueTeeth */,
 				86A75C0719859333003178EF /* BlueTeethTests */,
 				86A75BE119859333003178EF /* Frameworks */,
@@ -204,8 +205,8 @@
 				86A75CA7198597A2003178EF /* BTXShared.h */,
 				86A75CAA1985C0DC003178EF /* BTXClientServer.h */,
 				86A75CAB1985C0DC003178EF /* BTXClientServer.m */,
-				86DC9046198DC1E500086DA8 /* BTXPeer.h */,
-				86DC9047198DC1E500086DA8 /* BTXPeer.m */,
+				86DC9046198DC1E500086DA8 /* BTXNode.h */,
+				86DC9047198DC1E500086DA8 /* BTXNode.m */,
 				86DC9049198DC4A200086DA8 /* BTXMesh.h */,
 				86DC904A198DC4A200086DA8 /* BTXMesh.m */,
 				86DC904C198DD84A00086DA8 /* BTXPayload.h */,
@@ -218,18 +219,19 @@
 				861CD5561997CB5000730F50 /* BTXReceiveBuffer.m */,
 				86EC899D19972D7900CE3BE6 /* BTXPCDelegate.h */,
 				861CD55B1997D2ED00730F50 /* BTXCSDelegate.h */,
+				86151CBC199C480600D7E635 /* BTXPayloadType.h */,
+				8628105919A41EAE0025245E /* BTXMeshDelegate.h */,
 			);
 			name = BTX;
 			sourceTree = "<group>";
 		};
-		86A75CB81985F00B003178EF /* BLE */ = {
+		86F66F13199EE45B00A74A00 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				86A75CB91985F00B003178EF /* BLE.h */,
-				86A75CBA1985F00B003178EF /* BLE.m */,
-				86A75CBB1985F00B003178EF /* BLEDefines.h */,
+				86F66F19199EE68600A74A00 /* BTXChatViewController.h */,
+				86F66F1A199EE68600A74A00 /* BTXChatViewController.m */,
 			);
-			path = BLE;
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,12 +381,12 @@
 				86A75BF919859333003178EF /* BTXViewController.m in Sources */,
 				861A1B3E199072790003B5DC /* BTXBroadcastBuffer.m in Sources */,
 				861CD5571997CB5000730F50 /* BTXReceiveBuffer.m in Sources */,
-				86A75CBC1985F00B003178EF /* BLE.m in Sources */,
 				86A75CAC1985C0DC003178EF /* BTXClientServer.m in Sources */,
-				86DC9048198DC1E500086DA8 /* BTXPeer.m in Sources */,
+				86DC9048198DC1E500086DA8 /* BTXNode.m in Sources */,
 				86DC904E198DD84A00086DA8 /* BTXPayload.m in Sources */,
 				86A75BF319859333003178EF /* BTXAppDelegate.m in Sources */,
 				86B705651991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.m in Sources */,
+				86F66F1B199EE68600A74A00 /* BTXChatViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

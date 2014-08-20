@@ -13,6 +13,7 @@
 
 @interface BTXAppDelegate : UIResponder <UIApplicationDelegate>
 
+@property BTXNode* profile;
 @property BTXMesh* mesh;
 
 @property (strong, nonatomic) UIWindow *window;

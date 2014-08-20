@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "BTXClientServer.h"
-#import "BTXPeer.h"
+#import "BTXNode.h"
 #import "BTXPayload.h"
 
+#import "BTXMeshDelegate.h"
 
 /*
  
@@ -24,6 +25,9 @@
  */
 @interface BTXMesh : NSObject
 
+@property (nonatomic, weak) id <BTXMeshDelegate> delegate;
+
+
 // unique identifier that identifies this channel.
 // Multiple channels can have potential naming conflicts
 @property (strong, nonatomic) NSString* identifier;
@@ -31,11 +35,12 @@
 // The display name for a channel
 @property (strong, nonatomic) NSString* tag;
 
-// NSArray of BTXPeer objects that represent the known users in the current channel.
-@property (strong, nonatomic) NSArray* peers;
+// NSArray of BTXPeer objects that represent the known peers.
+@property (strong, nonatomic) NSMutableArray* peers;
 
 // If the peer is connected as a peripheral, retain the object right here.
 @property (strong, nonatomic) BTXClientServer* btxClientServer;
+
 
 -(void) sendDataForChannel:(NSString *)channel data:(NSData *)data;
 

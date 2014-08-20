@@ -7,15 +7,15 @@
 //
 
 #import "JSONModel.h"
+#import "BTXPayloadType.h"
 #import <Foundation/Foundation.h>
 
 @interface BTXPayload : JSONModel
 
-
 // The type of packet received.
 // Certain packets are not propogated through network
 // Certain types are...
-@property NSInteger type;
+@property BTXPayloadType type;
 @property (strong, nonatomic) NSString* uid;
 
 @property (strong, nonatomic) NSString* peerid; // peer id

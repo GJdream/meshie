@@ -4,6 +4,7 @@
 target "BlueTeeth" do
 
 pod 'JSONModel'
+pod 'JSQMessagesViewController'
 
 end
 

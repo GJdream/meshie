@@ -11,6 +11,8 @@
 
 @protocol BTXPCDelegate <NSObject>   //define delegate protocol
 
+-(void) onConnectionEstablishedWithPeripheral: (CBPeripheral*) peripheral;
+-(void) onConnectionEstablishedWithCentral: (CBCentral*) central;
 
 -(void) onDataReceived:(NSData*) data
         fromPeripheral: (CBPeripheral*) peripehral;

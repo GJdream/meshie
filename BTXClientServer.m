@@ -44,7 +44,6 @@
     if(!btxCentralManager) {
         btxCentralManager = [[BTXCentralManager alloc] initWithServiceUUID:MSH_SERVICE_UUID characteristicUUID:MSH_TX_UUID];
         btxCentralManager.delegate = self;
-        
     }
     
     
@@ -76,6 +75,18 @@
     [btxPeripheralManager broadcastData:[json dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
+-(void) onConnectionEstablishedWithCentral:(CBCentral *)central {
+    NSLog(@"Connected to central.");
+}
+
+-(void) onConnectionEstablishedWithPeripheral:(CBPeripheral *)peripheral {
+    NSLog(@"Connected to peripheral.");
+}
+
+-(void) onConnectionEstablishedWithNode: (BTXNode*) node {
+    [self.delegate onConnectionEstablishedWithNode:node];
+}
+
 // Returns data sent from the connected peripheral to this central.
 -(void) onDataReceived:(NSData*) data
         fromPeripheral:(CBPeripheral*) peripheral {
@@ -83,6 +94,7 @@
     // Look up peer by peripheral id
     
     NSString* key = [peripheral.identifier UUIDString];
+    key = [NSString stringWithFormat:@"P:%@", key];
     
     BOOL bufferComplete = [self.receiveBuffer bufferData:data forKey:key];
     if(bufferComplete) {
@@ -98,6 +110,7 @@
     // Lookup peer by central id.
     
     NSString* key = [central.identifier UUIDString];
+    key = [NSString stringWithFormat:@"C:%@", key];
     
     BOOL bufferComplete = [self.receiveBuffer bufferData:data forKey:key];
     if(bufferComplete) {
@@ -113,13 +126,9 @@
         NSLog(@"Error: %@", error);
     }
     
-    NSLog(@"Data recieved from either central or peripheral: %@", payload.data);
     if(!payload) return;
     
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onPayloadReceived:)]) {
-        [self.delegate onPayloadReceived:payload];
-    }
-
+    [self.delegate onPayloadReceived:payload];
 }
 
 @end

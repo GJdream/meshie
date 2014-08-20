@@ -11,6 +11,7 @@
 #import "BTXCentralManager.h"
 #import "BTXPayload.h"
 #import "BTXCSDelegate.h"
+#import "BTXNode.h"
 
 @interface BTXClientServer : NSObject {
     BTXPeripheralManager* btxPeripheralManager;

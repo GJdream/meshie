@@ -175,10 +175,8 @@
         [self removePeripheralFromCache:peripheral];
         return;
     }
-    NSLog(@"Discovered services");
+    
     for(CBService* service in peripheral.services) {
-        NSLog(@"Checking characteristics");
-
         [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:MSH_TX_UUID]] forService:service];
     }
 }
@@ -189,11 +187,12 @@
         return;
     }
     
-    NSLog(@"Discovered characteristics");
-
     for(CBCharacteristic* characteristic in service.characteristics) {
         if([characteristic.UUID isEqual:[CBUUID UUIDWithString:MSH_TX_UUID]]) {
             [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            if(self.delegate && [self.delegate respondsToSelector:@selector(onConnectionEstablishedWithPeripheral:)]) {
+                [self.delegate onConnectionEstablishedWithPeripheral:peripheral];
+            }
             return;
         }
     }
@@ -207,9 +206,7 @@
         return;
     }
     
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onDataReceived:fromPeripheral:)]) {
-        [self.delegate onDataReceived:characteristic.value fromPeripheral:peripheral];
-    }
+    [self.delegate onDataReceived:characteristic.value fromPeripheral:peripheral];
 }
 
 /*

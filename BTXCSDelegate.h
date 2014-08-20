@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "BTXPayload.h"
+@class BTXNode;
 
 @protocol BTXCSDelegate <NSObject>
 
+-(void) onConnectionEstablishedWithNode: (BTXNode*) node;
 -(void) onPayloadReceived: (BTXPayload*) payload;
 
 @end

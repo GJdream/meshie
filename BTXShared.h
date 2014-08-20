@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BTXPayloadType.h"
 
 #if TARGET_OS_IPHONE
 #import <CoreBluetooth/CoreBluetooth.h>

@@ -13,6 +13,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.mesh = [[BTXMesh alloc] init];
+    self.profile = [[BTXNode alloc] init];
+    
+    UIDevice *device = [UIDevice currentDevice];
+    NSString  *currentDeviceId = [[device identifierForVendor]UUIDString];
+    
+    self.profile.identifier = currentDeviceId;
     
     // Override point for customization after application launch.
     return YES;
