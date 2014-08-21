@@ -7,12 +7,12 @@
 //
 
 #import "BTXViewController.h"
-#import "BTXMesh.h"
+#import "BTXMeshClient.h"
 #import "BTXAppDelegate.h"
 
 @interface BTXViewController ()
 
-@property BTXMesh* mesh;
+@property BTXMeshClient* mesh;
 
 
 @end

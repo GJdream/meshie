@@ -9,13 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
 
-@interface BTXNode : JSONModel
+@interface BTXNode : JSONModel <NSCoding>
 
 @property (strong, nonatomic) NSString* identifier;
 @property (strong, nonatomic) NSString* displayName;
 
 @property (strong, nonatomic) NSString* centralUUID;
 @property (strong, nonatomic) NSString* peripheralUUID;
+
+@property (strong, nonatomic) NSString* mood;
+@property (strong, nonatomic) NSString* about;
 
 +(BTXNode*) getSelf;
 

@@ -12,7 +12,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.mesh = [[BTXMesh alloc] init];
+    self.mesh = [BTXMeshClient instance];
     self.profile = [[BTXNode alloc] init];
     
     UIDevice *device = [UIDevice currentDevice];

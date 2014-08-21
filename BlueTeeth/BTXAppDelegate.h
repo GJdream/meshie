@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "BTXClientServer.h"
-#import "BTXMesh.h"
+#import "BTXMeshClient.h"
 
 
 @interface BTXAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property BTXNode* profile;
-@property BTXMesh* mesh;
+@property BTXMeshClient* mesh;
 
 @property (strong, nonatomic) UIWindow *window;
 

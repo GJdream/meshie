@@ -11,7 +11,7 @@
 
 @interface BTXChatViewController () <BTXMeshDelegate>
 
-@property BTXMesh* mesh;
+@property BTXMeshClient* mesh;
 
 @end
 

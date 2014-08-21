@@ -76,11 +76,17 @@
 }
 
 -(void) onConnectionEstablishedWithCentral:(CBCentral *)central {
-    NSLog(@"Connected to central.");
+    BTXNode* node = [[BTXNode alloc] init];
+    node.centralUUID = [central.identifier UUIDString];
+    
+    [self onConnectionEstablishedWithNode:node];
 }
 
 -(void) onConnectionEstablishedWithPeripheral:(CBPeripheral *)peripheral {
-    NSLog(@"Connected to peripheral.");
+    BTXNode* node = [[BTXNode alloc] init];
+    node.peripheralUUID = [peripheral.identifier UUIDString];
+    
+    [self onConnectionEstablishedWithNode:node];
 }
 
 -(void) onConnectionEstablishedWithNode: (BTXNode*) node {

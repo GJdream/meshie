@@ -6,15 +6,17 @@
 //  Copyright (c) 2014 sefbkn. All rights reserved.
 //
 
-#import "BTXMesh.h"
+#import "BTXMeshClient.h"
 
-@interface BTXMesh() <BTXCSDelegate>
+#define ARCHIVE_FILE @"peers.archive"
+
+@interface BTXMeshClient() <BTXCSDelegate>
 
 @property NSMutableArray* payloads;
 
 @end
 
-@implementation BTXMesh
+@implementation BTXMeshClient
 
 -(instancetype) init {
     self = [super init];
@@ -23,10 +25,24 @@
         self.btxClientServer.delegate = self;
         
         self.payloads = [[NSMutableArray alloc] init];
-        self.peers = [[NSMutableArray alloc] init];
+        
+        self.peers = [NSKeyedUnarchiver unarchiveObjectWithFile:ARCHIVE_FILE];
+        
+        if(!self.peers) {
+            self.peers = [[NSMutableArray alloc] init];
+        }
     }
     
     return self;
+}
+
++(BTXMeshClient*) instance {
+    static BTXMeshClient* singleInstance = nil;
+    if(!singleInstance) {
+        singleInstance = [[BTXMeshClient alloc] init];
+    }
+    
+    return singleInstance;
 }
 
 -(void) sendDataForChannel:(NSString *)channel data:(NSData *)data {
@@ -101,15 +117,24 @@
     BTXNode* existingNode = [self findCachedPeer:node];
     
     if(existingNode) {
-        NSLog(@"Node already exists.");
-        // We should do a data map of some kind...
-        // Just so we populate the node with updated info as well as caching old info if needed.
+        if (!existingNode.peripheralUUID || ![existingNode.peripheralUUID isEqual:node.peripheralUUID]) {
+            existingNode.peripheralUUID = node.peripheralUUID;
+        }
         
-        // For example, a node once being connected as a central, then changing to a peripheral.
-        // It may be nice to cache both central and peripheral uuids.
-        // return;
+        if (!existingNode.centralUUID || ![existingNode.centralUUID isEqual:node.centralUUID]) {
+            existingNode.centralUUID = node.centralUUID;
+        }
     }
+    
+    // Map fields.
+    existingNode.identifier = node.identifier;
+    existingNode.about = node.about;
+    existingNode.displayName = node.displayName;
+    existingNode.mood = node.mood;
+    
     [self.peers addObject:node];
+    
+    [NSKeyedArchiver archiveRootObject:self.peers toFile:ARCHIVE_FILE];
 }
 
 -(void) broadcastOwnProfile {
@@ -118,6 +143,7 @@
     
     BTXPayload* payload = [[BTXPayload alloc] init];
     
+    payload.uid = [[NSUUID UUID] UUIDString];
     payload.ts = [NSDate date];
     payload.data = selfNodeJson;
     payload.peerid = [[BTXNode getSelf] identifier];
@@ -129,17 +155,17 @@
 -(BTXNode*) findCachedPeer: (BTXNode*) node {
     BTXNode* matchedNode = nil;
     for (BTXNode* cachedNode in self.peers) {
+        if(cachedNode.identifier && [cachedNode.identifier isEqualToString:node.identifier]) {
+            matchedNode = cachedNode;
+            break;
+        }
+
         if(cachedNode.peripheralUUID && [cachedNode.peripheralUUID isEqualToString:node.peripheralUUID]) {
             matchedNode = cachedNode;
             break;
         }
         
         if(cachedNode.centralUUID && [cachedNode.centralUUID isEqualToString:node.centralUUID]) {
-            matchedNode = cachedNode;
-            break;
-        }
-        
-        if(cachedNode.identifier && [cachedNode.identifier isEqualToString:node.identifier]) {
             matchedNode = cachedNode;
             break;
         }

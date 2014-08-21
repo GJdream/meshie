@@ -23,10 +23,9 @@
     while they are connected to it.
  
  */
-@interface BTXMesh : NSObject
+@interface BTXMeshClient : NSObject
 
 @property (nonatomic, weak) id <BTXMeshDelegate> delegate;
-
 
 // unique identifier that identifies this channel.
 // Multiple channels can have potential naming conflicts
@@ -44,5 +43,6 @@
 
 -(void) sendDataForChannel:(NSString *)channel data:(NSData *)data;
 
++(BTXMeshClient*) instance;
 
 @end
