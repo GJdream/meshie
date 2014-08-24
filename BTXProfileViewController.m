@@ -37,6 +37,11 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     self.tabBarController.navigationItem.rightBarButtonItem = _saveButton;
+    BTXNode* selfNode = [BTXNode getSelf];
+
+    self.nameTextField.text = selfNode.displayName;
+    self.moodTextField.text = selfNode.mood;
+    self.aboutTextField.text = selfNode.about;
 }
 
 -(void) viewWillDisappear:(BOOL)animated {

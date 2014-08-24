@@ -14,6 +14,7 @@
 {
     self.mesh = [BTXMeshClient instance];
     self.profile = [[BTXNode alloc] init];
+    self.profile.displayName = [[UIDevice currentDevice] name];
     
     UIDevice *device = [UIDevice currentDevice];
     NSString  *currentDeviceId = [[device identifierForVendor]UUIDString];
