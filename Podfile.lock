@@ -1,14 +1,31 @@
 PODS:
+  - FontAwesomeKit (2.1.7):
+    - FontAwesomeKit/Core
+    - FontAwesomeKit/FontAwesome
+    - FontAwesomeKit/FoundationIcons
+    - FontAwesomeKit/IonIcons
+    - FontAwesomeKit/Zocial
+  - FontAwesomeKit/Core (2.1.7)
+  - FontAwesomeKit/FontAwesome (2.1.7):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/FoundationIcons (2.1.7):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/IonIcons (2.1.7):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/Zocial (2.1.7):
+    - FontAwesomeKit/Core
   - JSONModel (0.13.0)
   - JSQMessagesViewController (5.2.1):
     - JSQSystemSoundPlayer
   - JSQSystemSoundPlayer (1.5.2)
 
 DEPENDENCIES:
+  - FontAwesomeKit (~> 2.1.0)
   - JSONModel
   - JSQMessagesViewController
 
 SPEC CHECKSUMS:
+  FontAwesomeKit: af6eef70d23986349284d2feb4e959459621587d
   JSONModel: 62ea96b49ea18a8b91ef89c249dba291d8601d82
   JSQMessagesViewController: 23980f4af7898f94085072feaf4675c5221b38b4
   JSQSystemSoundPlayer: c24914bc96ff5365b5d28b59d7ecffd60d1c5587

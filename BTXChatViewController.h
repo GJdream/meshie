@@ -12,6 +12,7 @@
 @interface BTXChatViewController : JSQMessagesViewController
 
 @property (strong, nonatomic) NSMutableArray *messages;
+@property (strong, nonatomic) NSString* channel;
 
 @property (strong, nonatomic) UIImageView *outgoingBubbleImageView;
 @property (strong, nonatomic) UIImageView *incomingBubbleImageView;

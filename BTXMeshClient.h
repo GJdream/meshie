@@ -43,6 +43,12 @@
 
 -(void) sendDataForChannel:(NSString *)channel data:(NSData *)data;
 
+-(NSArray*) messagesForChannel: (NSString*) channelName;
+-(BTXNode*) findNodeByPeerId: (NSString*) peerId;
+-(void) broadcastOwnProfile;
+
+-(NSArray*) connectedPeers;
+
 +(BTXMeshClient*) instance;
 
 @end

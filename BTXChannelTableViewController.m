@@ -6,9 +6,15 @@
 //  Copyright (c) 2014 sefbkn. All rights reserved.
 //
 
+#import "BTXPeerTableViewCell.h"
+
+#import "BTXMeshClient.h"
+#import "BTXChatViewController.h"
 #import "BTXChannelTableViewController.h"
 
-@interface BTXChannelTableViewController ()
+#define PEER_CELL_ID @"PeerCell"
+
+@interface BTXChannelTableViewController () <BTXMeshDelegate>
 
 @end
 
@@ -27,11 +33,17 @@
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    UINib *nib = [UINib nibWithNibName:@"BTXPeerTableViewCell" bundle:nil];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    // Register this NIB, which contains the cell
+    [self.tableView registerNib:nib
+         forCellReuseIdentifier:PEER_CELL_ID];
+    BTXMeshClient* meshClient = [BTXMeshClient instance];
+    meshClient.delegate = self;
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,14 +52,24 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void) onMessageReceived:(NSString *)message fromNode:(BTXNode *)node onChannel:(NSString *)channel {
+    [self.tableView reloadData];
+}
+
+-(void) onPeerConnectionStateChanged {
+    NSLog(@"Connection state changed.");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
 #pragma mark - Table view data source
 
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @[@"Nearby", @"Far"][section];
+    return @[@"Channels", @"Nearby Users"][section];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
@@ -57,22 +79,67 @@
         return 1;
     }
     
+    if(section == 1) {
+        BTXMeshClient* meshClient = [BTXMeshClient instance];
+        return [meshClient connectedPeers].count + 1;
+    }
+    
     return 0;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Style"];
-    
-    if(indexPath.section == 0 && indexPath.row == 0)
-    {
-        cell.textLabel.text = @"Everyone";
+    if(indexPath.section == 0) {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Style"];
+        
+        if(indexPath.section == 0 && indexPath.row == 0) {
+            cell.textLabel.text = @"#everyone";
+        }
+        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        return cell;
     }
     
-    return cell;
+    else if (indexPath.section == 1) {
+        BTXPeerTableViewCell *cell =
+            [tableView dequeueReusableCellWithIdentifier:PEER_CELL_ID
+                                            forIndexPath:indexPath];
+        
+        BTXNode* node = [self getNodeByIndex:indexPath.row];
+        
+        cell.node = node;
+        
+        return cell;
+    }
+    
+    else return nil;
 }
 
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row == 0 && indexPath.section == 0) {
+        // Navigate to the chat view for all channels;
+        BTXChatViewController* chatViewController = [[BTXChatViewController alloc] init];
+        chatViewController.channel = @"#everyone";
+        
+        [self.navigationController pushViewController:chatViewController animated:true];
+    }
+    
+    else if(indexPath.section == 1) {
+        BTXChatViewController* chatViewController = [[BTXChatViewController alloc] init];
+        BTXNode* node = [self getNodeByIndex:indexPath.row];
+        chatViewController.channel = node.displayName;
+        
+        [self.navigationController pushViewController:chatViewController animated:true];
+    }
+}
+
+-(BTXNode*) getNodeByIndex: (NSInteger) index {
+    BTXMeshClient* meshClient = [BTXMeshClient instance];
+    BTXNode* node = index == 0 ? [BTXNode getSelf] : [meshClient connectedPeers][index-1];
+    return node;
+}
 
 /*
 // Override to support conditional editing of the table view.

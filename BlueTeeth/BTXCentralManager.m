@@ -129,6 +129,11 @@
         return;
     }
     
+    for(CBPeripheral* peripheral in self.discoveredPeripherals) {
+        [self disconnectPeripheral:peripheral];
+        [self.delegate onConnectionLostWithPeripheral:peripheral];
+    }
+    
     NSLog(@"Central manager state NOT OK.");
 }
 
@@ -150,6 +155,7 @@
 -(void) centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"Disconnected from peripheral");
     [self disconnectPeripheral:peripheral];
+    [self.delegate onConnectionLostWithPeripheral:peripheral];
     [self resumeDiscovery];
 }
 

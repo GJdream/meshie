@@ -5,6 +5,7 @@ target "BlueTeeth" do
 
 pod 'JSONModel'
 pod 'JSQMessagesViewController'
+pod 'FontAwesomeKit', '~> 2.1.0'
 
 end
 

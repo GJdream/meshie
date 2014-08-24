@@ -4,11 +4,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Profile View Controller - Profile-->
+        <!--Profile View Controller - Settings-->
         <scene sceneID="i9g-49-yya">
             <objects>
-                <tableViewController id="el7-M7-gkF" customClass="BTXProfileViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="eKy-RZ-K3A">
+                <tableViewController title="Settings" id="el7-M7-gkF" customClass="BTXProfileViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="eKy-RZ-K3A">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -62,15 +62,15 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="About Me" id="rYm-6C-arE">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="70" id="4Vk-P1-ebz">
-                                        <rect key="frame" x="0.0" y="303" width="320" height="70"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="178" id="4Vk-P1-ebz">
+                                        <rect key="frame" x="0.0" y="303" width="320" height="178"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Vk-P1-ebz" id="FL8-Yp-lLP">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="177"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="I'm awesome." translatesAutoresizingMaskIntoConstraints="NO" id="0gO-OW-ele">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="177"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -87,7 +87,7 @@
                             <outlet property="delegate" destination="el7-M7-gkF" id="jLh-Bn-hM0"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Profile" id="x1r-0d-eft"/>
+                    <tabBarItem key="tabBarItem" title="Setings" id="x1r-0d-eft"/>
                     <connections>
                         <outlet property="aboutTextField" destination="0gO-OW-ele" id="uhL-en-Wks"/>
                         <outlet property="moodTextField" destination="SJW-EB-YsB" id="cAo-gp-b2b"/>
@@ -118,11 +118,11 @@
             </objects>
             <point key="canvasLocation" x="1205" y="218"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller - Meshie-->
         <scene sceneID="Go3-Hg-MxH">
             <objects>
-                <tabBarController definesPresentationContext="YES" id="psl-f5-RhG" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="sYE-7H-le7"/>
+                <tabBarController definesPresentationContext="YES" id="psl-f5-RhG" customClass="BTXTabBarViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Meshie" id="sYE-7H-le7"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="oZU-Ue-azv">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
@@ -131,7 +131,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="jdi-sJ-vEh" kind="relationship" relationship="viewControllers" id="cei-9y-gl2"/>
-                        <segue destination="XAT-cl-U0w" kind="relationship" relationship="viewControllers" id="UNS-8e-4PR"/>
                         <segue destination="el7-M7-gkF" kind="relationship" relationship="viewControllers" id="XcV-MS-dye"/>
                     </connections>
                 </tabBarController>
@@ -158,13 +157,13 @@
         <scene sceneID="Xod-zs-dCG">
             <objects>
                 <tableViewController id="jdi-sJ-vEh" customClass="BTXChannelTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8oH-oI-LxN">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="8oH-oI-LxN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="as3-A6-TNI">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="as3-A6-TNI" id="OVs-Jp-OPb">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -182,35 +181,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MTw-IN-ve6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="751" y="635"/>
-        </scene>
-        <!--Peer Table View Controller - Peers-->
-        <scene sceneID="xqN-fJ-fdI">
-            <objects>
-                <tableViewController id="XAT-cl-U0w" customClass="BTXPeerTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="AGg-ye-E8z">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="QRW-4i-pnK">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QRW-4i-pnK" id="cM2-Hd-5Q9">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="XAT-cl-U0w" id="0Vj-Om-4o4"/>
-                            <outlet property="delegate" destination="XAT-cl-U0w" id="oQV-D3-vtt"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Peers" id="4dq-eC-22S"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="g88-WN-3Pz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="751" y="1358"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

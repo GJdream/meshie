@@ -15,6 +15,8 @@
 
 @implementation BTXNode
 
+@synthesize displayName = _displayName;
+
 +(BTXNode*) getSelf {
     return [(BTXAppDelegate *)[[UIApplication sharedApplication] delegate] profile];
 }
@@ -50,6 +52,14 @@
     
     [encoder encodeObject:self.identifier forKey:@"mood"];
     [encoder encodeObject:self.identifier forKey:@"about"];
+}
+
+-(NSString*) displayName {
+    return _displayName ? _displayName : @"";
+}
+
+-(void) setDisplayName:(NSString *)displayName {
+    _displayName = displayName;
 }
 
 @end

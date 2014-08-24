@@ -10,6 +10,10 @@
 
 @protocol BTXMeshDelegate <NSObject>
 
--(void) onMessageReceived:(NSString*) message;
+-(void) onMessageReceived:(NSString*) message
+                 fromNode:(BTXNode*) node
+                onChannel:(NSString*) channel;
+
+-(void) onPeerConnectionStateChanged;
 
 @end

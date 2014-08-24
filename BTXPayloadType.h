@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef enum BTXPayloadType : NSInteger {
-    BTXPayloadProfileRequest,
-    BTXPayloadProfileResponse,
-    BTXPayloadChannelMessage
+    BTXPayloadProfileRequest = 10,
+    BTXPayloadProfileResponse = 20,
+    BTXPayloadChannelMessage = 30
 } BTXPayloadType;

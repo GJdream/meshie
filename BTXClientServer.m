@@ -26,40 +26,18 @@
     return self;
 }
 
-// This should initialize BOTH the central and peripheral managers,
-// and synchronize them such that they do not run at the same intervals
-// to avoid conflicts and stuff not working.
-
 -(void) initClientServer {
-    
-//#if !TARGET_OS_IPHONE
     // Initialize self as peripheral.
     if (!btxPeripheralManager) {
         btxPeripheralManager = [[BTXPeripheralManager alloc] initWithServiceUUID:MSH_SERVICE_UUID characteristicUUID:MSH_TX_UUID];
         btxPeripheralManager.delegate = self;
     }
     
-//#else
     // Initialize self as central.
     if(!btxCentralManager) {
         btxCentralManager = [[BTXCentralManager alloc] initWithServiceUUID:MSH_SERVICE_UUID characteristicUUID:MSH_TX_UUID];
         btxCentralManager.delegate = self;
     }
-    
-    
-//#endif
-    
-}
-
--(void) pauseDiscoveryAndBroadcasts {
-    // Prevent connections.
-    return;
-    [btxCentralManager.centralManager stopScan];
-    [btxPeripheralManager.peripheralManager stopAdvertising];
-}
-
--(void) resumeDiscoveryAndBroadcasts {
-    
 }
 
 // Broadcast data to currently connected peripherals.
@@ -73,6 +51,21 @@
     
     // Broadcast data to all connected centrals.
     [btxPeripheralManager broadcastData:[json dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
+-(void) onConnectionLostWithPeripheral:(CBPeripheral *)peripheral {
+    BTXNode* node = [[BTXNode alloc] init];
+    node.peripheralUUID = [[peripheral identifier] UUIDString];
+    
+    [self onConnectionLostWithNode:node];
+    
+}
+
+-(void) onConnectionLostWithCentral:(CBCentral *)central {
+    BTXNode* node = [[BTXNode alloc] init];
+    node.centralUUID = [[central identifier] UUIDString];
+    
+    [self onConnectionLostWithNode:node];
 }
 
 -(void) onConnectionEstablishedWithCentral:(CBCentral *)central {
@@ -89,6 +82,10 @@
     [self onConnectionEstablishedWithNode:node];
 }
 
+-(void) onConnectionLostWithNode: (BTXNode*) node {
+    [self.delegate onConnectionLostWithNode:node];
+}
+
 -(void) onConnectionEstablishedWithNode: (BTXNode*) node {
     [self.delegate onConnectionEstablishedWithNode:node];
 }
@@ -96,24 +93,21 @@
 // Returns data sent from the connected peripheral to this central.
 -(void) onDataReceived:(NSData*) data
         fromPeripheral:(CBPeripheral*) peripheral {
-    // Create peer id if not exists.
-    // Look up peer by peripheral id
-    
+    // The data may come in twice (over central and peripheral)
+    // So, prepend the key with a character to buffer it uniquely.
     NSString* key = [peripheral.identifier UUIDString];
     key = [NSString stringWithFormat:@"P:%@", key];
     
     BOOL bufferComplete = [self.receiveBuffer bufferData:data forKey:key];
     if(bufferComplete) {
         NSData* d = [self.receiveBuffer dataForKey:key];
-        [self handlePayloadFromData:d];
+        [self handlePayloadFromData:d peripheralUUID:[peripheral.identifier UUIDString] centralUUID:nil];
     }
 }
 
 // Returns data sent from the central to the current peripehral.
 -(void) onDataReceived: (NSData*) data
            fromCentral: (CBCentral*) central {
-    // Create peer id.
-    // Lookup peer by central id.
     
     NSString* key = [central.identifier UUIDString];
     key = [NSString stringWithFormat:@"C:%@", key];
@@ -121,20 +115,29 @@
     BOOL bufferComplete = [self.receiveBuffer bufferData:data forKey:key];
     if(bufferComplete) {
         NSData* d = [self.receiveBuffer dataForKey:key];
-        [self handlePayloadFromData:d];
+        [self handlePayloadFromData:d peripheralUUID:nil centralUUID:[central.identifier UUIDString]];
     }
 }
 
--(void) handlePayloadFromData: (NSData*) data {
+-(void) handlePayloadFromData: (NSData*) data
+               peripheralUUID: (NSString*) peripheralUUID
+                  centralUUID: (NSString*) centralUUID {
     NSError* error;
     BTXPayload* payload = [[BTXPayload alloc] initWithData:data error:&error];
+    BTXPayloadWrapper* wrapper = [[BTXPayloadWrapper alloc] init];
+    
+    wrapper.peripheralUUID = peripheralUUID;
+    wrapper.centralUUID = centralUUID;
+    wrapper.payload = payload;
+    
+    
     if(error) {
         NSLog(@"Error: %@", error);
     }
     
     if(!payload) return;
     
-    [self.delegate onPayloadReceived:payload];
+    [self.delegate onPayloadReceived:wrapper];
 }
 
 @end

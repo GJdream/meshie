@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BTXPayload.h"
+#import "BTXPayloadWrapper.h"
 @class BTXNode;
 
 @protocol BTXCSDelegate <NSObject>
 
+-(void) onConnectionLostWithNode: (BTXNode*) node;
 -(void) onConnectionEstablishedWithNode: (BTXNode*) node;
--(void) onPayloadReceived: (BTXPayload*) payload;
+-(void) onPayloadReceived: (BTXPayloadWrapper*) payload;
 
 @end

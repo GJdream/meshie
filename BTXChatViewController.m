@@ -29,14 +29,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.messages = [[NSMutableArray alloc] init];
     
     // Custom initialization
     BTXAppDelegate* appDelegate = (BTXAppDelegate *)[[UIApplication sharedApplication] delegate];
     _mesh = appDelegate.mesh;
     
     _mesh.delegate = self;
+    self.title = self.channel;
+    self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory
+                                    outgoingMessageBubbleImageViewWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
+    
+    self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory
+                                    incomingMessageBubbleImageViewWithColor:[UIColor jsq_messageBubbleBlueColor]];
+
+    [self seedChannelData];
+}
+
+-(void) seedChannelData {
+    // Do any additional setup after loading the view.
+    self.messages = [[NSMutableArray alloc] init];
+    NSArray* payloads = [self.mesh messagesForChannel:self.channel];
+    
+    // Seed the channel data with previously received messages.
+    for(BTXPayload* payload in payloads) {
+        BTXNode* node = [self.mesh findNodeByPeerId:payload.peerid];
+        
+        NSString* sender = node == [BTXNode getSelf] ? self.sender : node.displayName;
+        
+        JSQMessage *m = [[JSQMessage alloc] initWithText:payload.data sender:sender date:payload.ts];
+        [self.messages addObject:m];
+    }
+    
+    
+    [self finishReceivingMessage];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,28 +70,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
--(void) onMessageReceived:(NSString *)message {
+-(void) onMessageReceived: (NSString *)message
+                 fromNode: (BTXNode *)node
+                onChannel:(NSString *)channel{
+    // Only show messages on the current channel.
+    if (![self.channel isEqualToString:channel]) {
+        return;
+    }
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        JSQMessage *m = [[JSQMessage alloc] initWithText:message sender:@"other" date:[NSDate date]];
+        JSQMessage *m = [[JSQMessage alloc] initWithText:message sender:node.displayName date:[NSDate date]];
 
         [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
         [self.messages addObject:m];
         [self finishReceivingMessage];
     });
+}
 
-    
+-(void) onPeerConnectionStateChanged {
+    // Handle refreshing peers connecting and disconnecting.
 }
 
 - (void)didPressSendButton:(UIButton *)button
@@ -80,7 +102,7 @@
     [self.messages addObject:message];
     
     [self finishSendingMessage];
-    [self.mesh sendDataForChannel:@"" data:[text dataUsingEncoding:NSUTF8StringEncoding]];
+    [self.mesh sendDataForChannel:self.channel data:[text dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -195,7 +217,7 @@
         cell.textView.textColor = [UIColor blackColor];
     }
     else {
-        cell.textView.textColor = [UIColor blackColor];
+        cell.textView.textColor = [UIColor whiteColor];
     }
     
     cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,

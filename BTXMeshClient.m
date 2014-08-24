@@ -18,6 +18,8 @@
 
 @implementation BTXMeshClient
 
+@synthesize peers = _peers;
+
 -(instancetype) init {
     self = [super init];
     if(self) {
@@ -25,7 +27,6 @@
         self.btxClientServer.delegate = self;
         
         self.payloads = [[NSMutableArray alloc] init];
-        
         self.peers = [NSKeyedUnarchiver unarchiveObjectWithFile:ARCHIVE_FILE];
         
         if(!self.peers) {
@@ -60,14 +61,15 @@
 }
 
 -(void) onConnectionLostWithNode: (BTXNode*) node {
-    NSLog(@"Connection lost with node: %@", node.identifier);
-    
     BTXNode* matchedNode = [self findCachedPeer:node];
-    
+    NSLog(@"Connection lost with node: %@", node.identifier);
+
     if (matchedNode) {
         [matchedNode setIsConnected:false];
         NSLog(@"Removed node");
     }
+    
+    [self.delegate onPeerConnectionStateChanged];
 }
 
 -(void) onConnectionEstablishedWithNode:(BTXNode *)node {
@@ -77,53 +79,75 @@
     [self broadcastOwnProfile];
 }
 
--(void) onPayloadReceived: (BTXPayload*) payload {
+-(void) onPayloadReceived: (BTXPayloadWrapper*) payloadWrapper {
+    BTXPayload* payload = payloadWrapper.payload;
+    
     BOOL isAlreadyReceived = [self isPayloadAlreadyReceived:payload];
     if(isAlreadyReceived) return; // Don't handle the same packet more than once.
+    
+    BOOL shouldRebroadcast = YES;
+    
     [self.payloads addObject:payload]; // Cache the message.
     
     if (payload.type == BTXPayloadProfileResponse) {
-        [self addNewProfileFromPayload:payload];
+        shouldRebroadcast = [self addNewProfileFromPayload:payloadWrapper];
     }
     
-    // Rebroadcast.  This is gonna cause a lot of noise for each message sent
-    // depending on the number of peers connected directly to each other.
-    [self.btxClientServer broadcastPayload:payload];
-
     if(payload.type == BTXPayloadChannelMessage) {
-        [self.delegate onMessageReceived:payload.data];
+        BTXNode* node = [self findNodeByPeerId:payload.peerid];
+        [self.delegate onMessageReceived:payload.data fromNode:node onChannel:payload.mesh];
     }
     
-    NSLog(@"From %@, Channel %@, Data %@ \a", payload.peerid, payload.mesh, payload.data);
+    if(shouldRebroadcast) {
+        // Rebroadcast.  This is gonna cause a lot of noise for each message sent
+        // depending on the number of peers connected directly to each other.
+        
+        [self.btxClientServer broadcastPayload:payload];
+    }
 }
 
--(void) addNewProfileFromPayload: (BTXPayload*) payload {
+// Returns whether we should rebroadcast the profile packet.
+-(BOOL) addNewProfileFromPayload: (BTXPayloadWrapper*) payloadWrapper {
+    BTXPayload* payload = payloadWrapper.payload;
+    
     if (payload.type != BTXPayloadProfileResponse) {
         NSLog(@"ERROR addNewProfileFromPayload: Invalid payload type");
-        return;
+        return false;
     }
+    
     NSError* error = nil;
     BTXNode* node = [[BTXNode alloc] initWithString:payload.data error:&error];
+    node.peripheralUUID = payloadWrapper.peripheralUUID;
+    node.centralUUID = payloadWrapper.centralUUID;
+    
+    // Ignore self profile broadcasts if they get back to us.
+    if([[node identifier] isEqualToString:[[BTXNode getSelf] identifier]]) {
+        return NO;
+    }
+    
     if(error) {
         NSLog(@"Error: %@", error);
-        return;
+        return NO;
     }
     
     if(!node) {
         NSLog(@"Error deserializing node.");
-        return;
+        return NO;
     }
     
     BTXNode* existingNode = [self findCachedPeer:node];
+    BOOL isNewNode = existingNode == nil;
     
-    if(existingNode) {
-        if (!existingNode.peripheralUUID || ![existingNode.peripheralUUID isEqual:node.peripheralUUID]) {
-            existingNode.peripheralUUID = node.peripheralUUID;
-        }
-        
-        if (!existingNode.centralUUID || ![existingNode.centralUUID isEqual:node.centralUUID]) {
-            existingNode.centralUUID = node.centralUUID;
-        }
+    if(isNewNode) {
+        existingNode = [[BTXNode alloc] init];
+    }
+    
+    if (node.peripheralUUID && (!existingNode.peripheralUUID || ![existingNode.peripheralUUID isEqual:node.peripheralUUID])) {
+        existingNode.peripheralUUID = node.peripheralUUID;
+    }
+    
+    if (node.centralUUID && (!existingNode.centralUUID || ![existingNode.centralUUID isEqual:node.centralUUID])) {
+        existingNode.centralUUID = node.centralUUID;
     }
     
     // Map fields.
@@ -132,9 +156,15 @@
     existingNode.displayName = node.displayName;
     existingNode.mood = node.mood;
     
-    [self.peers addObject:node];
+    existingNode.isConnected = true;
     
-    [NSKeyedArchiver archiveRootObject:self.peers toFile:ARCHIVE_FILE];
+    if(isNewNode) {
+        [self.peers addObject:existingNode];
+    }
+    
+    [self.delegate onPeerConnectionStateChanged];
+    
+    return YES;
 }
 
 -(void) broadcastOwnProfile {
@@ -146,10 +176,22 @@
     payload.uid = [[NSUUID UUID] UUIDString];
     payload.ts = [NSDate date];
     payload.data = selfNodeJson;
-    payload.peerid = [[BTXNode getSelf] identifier];
+    payload.peerid = selfNode.identifier;
     payload.type = BTXPayloadProfileResponse;
     
     [self.btxClientServer broadcastPayload:payload];
+}
+
+-(BTXNode*) findNodeByPeerId:(NSString*) peerId {
+    // The current node will not be added as a peer, so check for it.
+    if ([peerId isEqualToString:[BTXNode getSelf].identifier]) {
+        return [BTXNode getSelf];
+    }
+    
+    BTXNode* tempNode = [[BTXNode alloc] init];
+    tempNode.identifier = peerId;
+    
+    return [self findCachedPeer:tempNode];
 }
 
 -(BTXNode*) findCachedPeer: (BTXNode*) node {
@@ -183,6 +225,45 @@
     }
     
     return FALSE;
+}
+
+-(NSMutableArray*) peers {
+    return _peers;
+}
+
+-(void) setPeers:(NSMutableArray *)peers {
+    _peers = peers;
+}
+
+-(NSArray*) connectedPeers {
+    NSMutableArray* p = [[NSMutableArray alloc] init];
+    
+    for(BTXNode* peer in self.peers) {
+        if(peer.isConnected) {
+            [p addObject:peer];
+        }
+    }
+    
+    return p;
+}
+
+// Return an array of packets for a particular channel.
+-(NSArray*) messagesForChannel: (NSString*) channelName {
+    NSMutableArray* messages = [[NSMutableArray alloc] init];
+    
+    for(BTXPayload* payload in self.payloads) {
+        
+        // Skip packets that are not channel messages.
+        if(payload.type != BTXPayloadChannelMessage) {
+            continue;
+        }
+        
+        if([payload.mesh isEqualToString:channelName]) {
+            [messages addObject:payload];
+        }
+    }
+    
+    return messages;
 }
 
 @end

@@ -20,8 +20,8 @@
 @property (strong, nonatomic) NSString* mood;
 @property (strong, nonatomic) NSString* about;
 
-+(BTXNode*) getSelf;
+@property BOOL isConnected;
 
--(void) setIsConnected: (BOOL) isConnected;
++(BTXNode*) getSelf;
 
 @end

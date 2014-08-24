@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-BlueTeeth-FontAwesomeKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-BlueTeeth-JSONModel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>296A025DE7B94333A52B0420</key>
+		<key>3755C6C80B904083A74D010E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A3277B395DA342E1B5F51C26</key>
+		<key>3DF1B2BBE77F4F6A8112B928</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A62F2EA6042B4AFC96BCE25D</key>
+		<key>A61B4578906443E5B7F889B6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B79D49FB11A94D57ACE57088</key>
+		<key>B84B9F4BDDD6457C9A146B4E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F21256C18A2248718666435E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

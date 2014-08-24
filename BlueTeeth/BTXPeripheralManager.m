@@ -68,7 +68,10 @@
 
 -(void) peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
     if(peripheral.state != CBPeripheralManagerStatePoweredOn) {
-        NSLog(@"Peripheral state not powered on!");
+        for(CBCentral* central in self.centrals) {
+            [self.delegate onConnectionLostWithCentral:central];
+        }
+        
         return;
     }
     
@@ -107,6 +110,7 @@
 -(void) peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic {
     NSLog(@"Central unsubscribed from peripheral");
     [self.centrals removeObject:central];
+    [self.delegate onConnectionLostWithCentral:central];
 }
 
 -(void) broadcastData: (NSData*) data {

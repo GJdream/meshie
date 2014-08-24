@@ -7,6 +7,7 @@
 //
 
 #import "BTXNode.h"
+#import "BTXAppDelegate.h"
 #import "BTXProfileViewController.h"
 
 @interface BTXProfileViewController ()
@@ -14,6 +15,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *moodTextField;
 @property (strong, nonatomic) IBOutlet UITextView *aboutTextField;
+
+@property (strong, nonatomic) UIBarButtonItem* saveButton;
 
 @end
 
@@ -29,23 +32,41 @@
 }
 
 - (IBAction)onNameChanged:(id)sender {
-    BTXNode* selfNode = [BTXNode getSelf];
-    selfNode.displayName = self.nameTextField.text;
-    selfNode.mood = self.moodTextField.text;
-    selfNode.about = self.aboutTextField.text;
-    
-    
+
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    self.tabBarController.navigationItem.rightBarButtonItem = _saveButton;
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    self.tabBarController.navigationItem.rightBarButtonItem = nil;
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    // Build out save button
+    _saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSavePressed:)];
+}
+
+-(void) onSavePressed: (UIButton*) button {
+    NSArray* textFields = @[self.nameTextField, self.moodTextField, self.aboutTextField];
+    for(UIView* v in textFields) {
+        [v resignFirstResponder];
+    }
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    BTXNode* selfNode = [BTXNode getSelf];
+    selfNode.displayName = self.nameTextField.text;
+    selfNode.mood = self.moodTextField.text;
+    selfNode.about = self.aboutTextField.text;
+    
+    BTXAppDelegate* appDelegate = (BTXAppDelegate *)[[UIApplication sharedApplication] delegate];
+    BTXMeshClient* mesh = appDelegate.mesh;
+    
+    [mesh broadcastOwnProfile];
 }
 
 - (void)didReceiveMemoryWarning
