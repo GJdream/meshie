@@ -7,11 +7,8 @@
 //
 
 #import "BTXTabBarViewController.h"
-
+#import "BTXCommon.h"
 #import "FontAwesomeKit/FontAwesomeKit.h"
-
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
 
 @interface BTXTabBarViewController ()
 
@@ -31,7 +28,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     int s = 23;
     
@@ -51,7 +47,7 @@
         item.image = image;
     }
     
-    self.tabBar.tintColor = UIColorFromRGB(0x5856d6);
+    self.tabBar.tintColor = [BTXCommon primaryThemeColor];
 }
 
 - (void)didReceiveMemoryWarning

@@ -129,6 +129,7 @@
         return;
     }
     
+    // If the state is not ok, then we need to mark all peripherals as disconnected.
     for(CBPeripheral* peripheral in self.discoveredPeripherals) {
         [self disconnectPeripheral:peripheral];
         [self.delegate onConnectionLostWithPeripheral:peripheral];
@@ -165,7 +166,15 @@
     NSLog(@"Failed to connect to peripheral");
     
     [self disconnectPeripheral:peripheral];
-    [self resumeDiscovery];
+    
+    
+    // If we failed to connect to a peripheral for some reason, pause for a few seconds before
+    // resuming discovery.  The opposing device may end up connecting to us as a central.
+    // If we do this immediately instead of pausing, the iOS bluetooth stack appears to spazz
+    // out and simply stop working.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self resumeDiscovery];
+    });
 }
 
 -(void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
@@ -245,10 +254,14 @@
     NSString* key = [peripheral.identifier UUIDString];
     if ([self.broadcastBuffer hasDataForKey:key]) {
         NSData* data = [self.broadcastBuffer peekDataForKey:key];
+        // Writes the data to the peripheral.  On data being written, the method didWriteValueForCharacteristic is called.
         [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
     }
 }
 
+// This method is called when we call [peripheral writeValue:forCharacteristic:type:]
+// If a write is successful, then we mark the data as sent and attempt to send the next chunk of data.
+// We continue to do this until the buffer has been cleared and all data has been sent.
 -(void) peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     
     if(error) {
@@ -256,9 +269,12 @@
     } else {
         // If the value that we wrote was successful.
         NSString* key = [peripheral.identifier UUIDString];
+        
+        // Remove it from the queue
         [self.broadcastBuffer markDequeuedForKey:key];
     }
     
+    // If we have more data to be sent out to the peripheral, send it.
     NSString* key = [peripheral.identifier UUIDString];
     if ([self.broadcastBuffer hasDataForKey:key]) {
         // Flush the buffer by peripheral/characteristic.

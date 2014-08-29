@@ -20,6 +20,8 @@
 @property (strong, nonatomic) NSString* mood;
 @property (strong, nonatomic) NSString* about;
 
+@property (strong, nonatomic) NSDate* lastSeenOn;
+
 @property BOOL isConnected;
 
 +(BTXNode*) getSelf;

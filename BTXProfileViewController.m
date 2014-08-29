@@ -16,6 +16,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *moodTextField;
 @property (strong, nonatomic) IBOutlet UITextView *aboutTextField;
 
+@property (strong, nonatomic) IBOutlet UITableViewCell *proximityNotificationTableViewCell;
+@property (strong, nonatomic) IBOutlet UITableViewCell *channelMessageTableViewCell;
+@property (strong, nonatomic) IBOutlet UITableViewCell *privateMessageTableViewCell;
+
 @property (strong, nonatomic) UIBarButtonItem* saveButton;
 
 @end
@@ -35,7 +39,7 @@
 
 }
 
--(void) viewWillAppear:(BOOL)animated {
+-(void) viewWillAppear: (BOOL)animated {
     self.tabBarController.navigationItem.rightBarButtonItem = _saveButton;
     BTXNode* selfNode = [BTXNode getSelf];
 
@@ -55,6 +59,14 @@
     
     // Build out save button
     _saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSavePressed:)];
+    
+    NSArray* cells = @[self.proximityNotificationTableViewCell, self.channelMessageTableViewCell, self.privateMessageTableViewCell];
+    
+    for(UITableViewCell* cell in cells) {
+        UISwitch *toggleSwitch = [[UISwitch alloc] init];
+        cell.accessoryView = [[UIView alloc] initWithFrame:toggleSwitch.frame];
+        [cell.accessoryView addSubview:toggleSwitch];
+    }
 }
 
 -(void) onSavePressed: (UIButton*) button {

@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		861A1B3E199072790003B5DC /* BTXBroadcastBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 861A1B3D199072790003B5DC /* BTXBroadcastBuffer.m */; };
 		861CD5571997CB5000730F50 /* BTXReceiveBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 861CD5561997CB5000730F50 /* BTXReceiveBuffer.m */; };
+		8631895D19B118C400B0B34B /* BTXChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8631895C19B118C400B0B34B /* BTXChannel.m */; };
 		863A55DC19A56A6700E697EA /* BTXChannelTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 863A55DB19A56A6700E697EA /* BTXChannelTableViewController.m */; };
 		863A55DF19A56E1400E697EA /* BTXNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 863A55DE19A56E1400E697EA /* BTXNavigationController.m */; };
 		863A55E219A5712100E697EA /* BTXProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 863A55E119A5712100E697EA /* BTXProfileViewController.m */; };
 		86630ACE19A99B3800C251F8 /* BTXPayloadWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 86630ACD19A99B3800C251F8 /* BTXPayloadWrapper.m */; };
-		869D8A5119A920000001A61E /* BTXPeerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 869D8A4F19A920000001A61E /* BTXPeerTableViewCell.m */; };
-		869D8A5219A920000001A61E /* BTXPeerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 869D8A5019A920000001A61E /* BTXPeerTableViewCell.xib */; };
+		86630AD119AA4FDC00C251F8 /* BTXCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 86630AD019AA4FDC00C251F8 /* BTXCommon.m */; };
+		86921A8819AAB19500783676 /* BTXChannelInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86921A8719AAB19500783676 /* BTXChannelInfoViewController.m */; };
 		869D8A5519A941980001A61E /* BTXTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 869D8A5419A941980001A61E /* BTXTabBarViewController.m */; };
 		86A75BE319859333003178EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A75BE219859333003178EF /* Foundation.framework */; };
 		86A75BE519859333003178EF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A75BE419859333003178EF /* CoreGraphics.framework */; };
@@ -60,6 +61,8 @@
 		861CD5561997CB5000730F50 /* BTXReceiveBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXReceiveBuffer.m; sourceTree = "<group>"; };
 		861CD55B1997D2ED00730F50 /* BTXCSDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXCSDelegate.h; sourceTree = "<group>"; };
 		8628105919A41EAE0025245E /* BTXMeshDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTXMeshDelegate.h; sourceTree = "<group>"; };
+		8631895B19B118C400B0B34B /* BTXChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXChannel.h; sourceTree = "<group>"; };
+		8631895C19B118C400B0B34B /* BTXChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXChannel.m; sourceTree = "<group>"; };
 		863A55DA19A56A6700E697EA /* BTXChannelTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXChannelTableViewController.h; sourceTree = "<group>"; };
 		863A55DB19A56A6700E697EA /* BTXChannelTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXChannelTableViewController.m; sourceTree = "<group>"; };
 		863A55DD19A56E1400E697EA /* BTXNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXNavigationController.h; sourceTree = "<group>"; };
@@ -68,9 +71,10 @@
 		863A55E119A5712100E697EA /* BTXProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXProfileViewController.m; sourceTree = "<group>"; };
 		86630ACC19A99B3800C251F8 /* BTXPayloadWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPayloadWrapper.h; sourceTree = "<group>"; };
 		86630ACD19A99B3800C251F8 /* BTXPayloadWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXPayloadWrapper.m; sourceTree = "<group>"; };
-		869D8A4E19A920000001A61E /* BTXPeerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXPeerTableViewCell.h; sourceTree = "<group>"; };
-		869D8A4F19A920000001A61E /* BTXPeerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXPeerTableViewCell.m; sourceTree = "<group>"; };
-		869D8A5019A920000001A61E /* BTXPeerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTXPeerTableViewCell.xib; sourceTree = "<group>"; };
+		86630ACF19AA4FDC00C251F8 /* BTXCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXCommon.h; sourceTree = "<group>"; };
+		86630AD019AA4FDC00C251F8 /* BTXCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXCommon.m; sourceTree = "<group>"; };
+		86921A8619AAB19500783676 /* BTXChannelInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXChannelInfoViewController.h; sourceTree = "<group>"; };
+		86921A8719AAB19500783676 /* BTXChannelInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXChannelInfoViewController.m; sourceTree = "<group>"; };
 		869D8A5319A941980001A61E /* BTXTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTXTabBarViewController.h; sourceTree = "<group>"; };
 		869D8A5419A941980001A61E /* BTXTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTXTabBarViewController.m; sourceTree = "<group>"; };
 		86A75BDF19859333003178EF /* BlueTeeth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueTeeth.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,9 +179,10 @@
 		86A75BE819859333003178EF /* BlueTeeth */ = {
 			isa = PBXGroup;
 			children = (
+				86630ACF19AA4FDC00C251F8 /* BTXCommon.h */,
+				86630AD019AA4FDC00C251F8 /* BTXCommon.m */,
 				86A75BF119859333003178EF /* BTXAppDelegate.h */,
 				86A75BF219859333003178EF /* BTXAppDelegate.m */,
-				86A75BF419859333003178EF /* Main.storyboard */,
 				86A75BF719859333003178EF /* BTXViewController.h */,
 				86A75BF819859333003178EF /* BTXViewController.m */,
 				86A75BFA19859333003178EF /* Images.xcassets */,
@@ -243,6 +248,8 @@
 				861CD55B1997D2ED00730F50 /* BTXCSDelegate.h */,
 				86151CBC199C480600D7E635 /* BTXPayloadType.h */,
 				8628105919A41EAE0025245E /* BTXMeshDelegate.h */,
+				8631895B19B118C400B0B34B /* BTXChannel.h */,
+				8631895C19B118C400B0B34B /* BTXChannel.m */,
 			);
 			name = BTX;
 			sourceTree = "<group>";
@@ -250,6 +257,7 @@
 		86F66F13199EE45B00A74A00 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				86A75BF419859333003178EF /* Main.storyboard */,
 				86F66F19199EE68600A74A00 /* BTXChatViewController.h */,
 				86F66F1A199EE68600A74A00 /* BTXChatViewController.m */,
 				863A55DA19A56A6700E697EA /* BTXChannelTableViewController.h */,
@@ -258,11 +266,10 @@
 				863A55DE19A56E1400E697EA /* BTXNavigationController.m */,
 				863A55E019A5712100E697EA /* BTXProfileViewController.h */,
 				863A55E119A5712100E697EA /* BTXProfileViewController.m */,
-				869D8A4E19A920000001A61E /* BTXPeerTableViewCell.h */,
-				869D8A4F19A920000001A61E /* BTXPeerTableViewCell.m */,
-				869D8A5019A920000001A61E /* BTXPeerTableViewCell.xib */,
 				869D8A5319A941980001A61E /* BTXTabBarViewController.h */,
 				869D8A5419A941980001A61E /* BTXTabBarViewController.m */,
+				86921A8619AAB19500783676 /* BTXChannelInfoViewController.h */,
+				86921A8719AAB19500783676 /* BTXChannelInfoViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -355,7 +362,6 @@
 			files = (
 				86A75BFB19859333003178EF /* Images.xcassets in Resources */,
 				86A75BED19859333003178EF /* InfoPlist.strings in Resources */,
-				869D8A5219A920000001A61E /* BTXPeerTableViewCell.xib in Resources */,
 				86A75BF619859333003178EF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,11 +418,13 @@
 				86A75CA5198596EC003178EF /* BTXCentralManager.m in Sources */,
 				86DC904B198DC4A200086DA8 /* BTXMeshClient.m in Sources */,
 				863A55E219A5712100E697EA /* BTXProfileViewController.m in Sources */,
+				86921A8819AAB19500783676 /* BTXChannelInfoViewController.m in Sources */,
 				863A55DF19A56E1400E697EA /* BTXNavigationController.m in Sources */,
 				86A75BEF19859333003178EF /* main.m in Sources */,
 				86A75BF919859333003178EF /* BTXViewController.m in Sources */,
 				861A1B3E199072790003B5DC /* BTXBroadcastBuffer.m in Sources */,
 				86630ACE19A99B3800C251F8 /* BTXPayloadWrapper.m in Sources */,
+				86630AD119AA4FDC00C251F8 /* BTXCommon.m in Sources */,
 				861CD5571997CB5000730F50 /* BTXReceiveBuffer.m in Sources */,
 				86A75CAC1985C0DC003178EF /* BTXClientServer.m in Sources */,
 				86DC9048198DC1E500086DA8 /* BTXNode.m in Sources */,
@@ -426,7 +434,7 @@
 				86B705651991BA8300ED0B0E /* BTXGroupedBroadcastBuffer.m in Sources */,
 				863A55DC19A56A6700E697EA /* BTXChannelTableViewController.m in Sources */,
 				86F66F1B199EE68600A74A00 /* BTXChatViewController.m in Sources */,
-				869D8A5119A920000001A61E /* BTXPeerTableViewCell.m in Sources */,
+				8631895D19B118C400B0B34B /* BTXChannel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +471,7 @@
 				86A75BF519859333003178EF /* Base */,
 			);
 			name = Main.storyboard;
+			path = BlueTeeth;
 			sourceTree = "<group>";
 		};
 		86A75C0A19859333003178EF /* InfoPlist.strings */ = {

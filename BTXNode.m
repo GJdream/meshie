@@ -15,7 +15,30 @@
 
 @implementation BTXNode
 
+@synthesize isConnected = _isConnected;
+@synthesize lastSeenOn = _lastSeenOn;
 @synthesize displayName = _displayName;
+
+-(BOOL) isConnected {
+    return _isConnected;
+}
+
+-(void) setIsConnected:(BOOL)isConnected {
+    if(isConnected == NO) {
+        _lastSeenOn = [NSDate date];
+    }
+    
+    _isConnected = isConnected;
+}
+
+-(NSDate*) lastSeenOn {
+    // Last seen is now if we're still connected.
+    if (self.isConnected) {
+        _lastSeenOn = [NSDate date];
+    }
+    
+    return _lastSeenOn;
+}
 
 +(BTXNode*) getSelf {
     return [(BTXAppDelegate *)[[UIApplication sharedApplication] delegate] profile];

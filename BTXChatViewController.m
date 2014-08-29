@@ -78,7 +78,7 @@
         return;
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0)), dispatch_get_main_queue(), ^{
         JSQMessage *m = [[JSQMessage alloc] initWithText:message sender:node.displayName date:[NSDate date]];
 
         [JSQSystemSoundPlayer jsq_playMessageReceivedSound];

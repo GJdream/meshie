@@ -12,7 +12,10 @@
 
 @interface BTXMeshClient() <BTXCSDelegate>
 
+@property NSDate* lastNearbyUserNotification;
+
 @property NSMutableArray* payloads;
+@property NSMutableArray* channels;
 
 @end
 
@@ -31,6 +34,10 @@
         
         if(!self.peers) {
             self.peers = [[NSMutableArray alloc] init];
+        }
+        
+        if(!self.channels) {
+            self.channels = [[NSMutableArray alloc] init];
         }
     }
     
@@ -91,10 +98,41 @@
     
     if (payload.type == BTXPayloadProfileResponse) {
         shouldRebroadcast = [self addNewProfileFromPayload:payloadWrapper];
+        
+        if(shouldRebroadcast) {
+            // Do not notify the user more than once every 20 seconds.
+            int minWaitTimeSeconds = 20;
+            NSTimeInterval lastNotificationSeconds = minWaitTimeSeconds;
+            
+            // If we have sent a notification before, calculate the time difference.
+            if(self.lastNearbyUserNotification) {
+                lastNotificationSeconds = [[NSDate date] timeIntervalSinceDate:self.lastNearbyUserNotification];
+            }
+            if (lastNotificationSeconds >= 20) {
+                NSString* message = [NSString stringWithFormat:@"Someone is using Meshie nearby!"];
+                
+                [self notifyUserForMessage:message];
+                // Set current date as the last time a notification has been sent.
+                self.lastNearbyUserNotification = [NSDate date];
+            }
+        }
     }
     
     if(payload.type == BTXPayloadChannelMessage) {
         BTXNode* node = [self findNodeByPeerId:payload.peerid];
+        
+        if (!node) {
+            return;
+        }
+        
+        // If message to self, then change the channel to be the name of the other person.
+        if ([payload.mesh isEqualToString:[BTXNode getSelf].displayName]) {
+            payload.mesh = node.displayName;
+        }
+        
+        NSString* message = [NSString stringWithFormat:@"%@ - %@", node.displayName, payload.data];
+        
+        [self notifyUserForMessage:message];
         [self.delegate onMessageReceived:payload.data fromNode:node onChannel:payload.mesh];
     }
     
@@ -104,6 +142,21 @@
         
         [self.btxClientServer broadcastPayload:payload];
     }
+}
+
+-(void) notifyUserForMessage: (NSString*) message {
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    if (localNotif == nil)
+        return;
+    
+    localNotif.fireDate = [NSDate date];
+    localNotif.timeZone = [NSTimeZone defaultTimeZone];
+    localNotif.alertBody = message;
+    localNotif.alertAction = NSLocalizedString(@"View", nil);
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
+    localNotif.applicationIconBadgeNumber = 0;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
 }
 
 // Returns whether we should rebroadcast the profile packet.

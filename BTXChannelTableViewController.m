@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 sefbkn. All rights reserved.
 //
 
-#import "BTXPeerTableViewCell.h"
-
 #import "BTXMeshClient.h"
 #import "BTXChatViewController.h"
 #import "BTXChannelTableViewController.h"
+
+#import "FontAwesomeKit/FontAwesomeKit.h"
 
 #define PEER_CELL_ID @"PeerCell"
 
@@ -32,17 +32,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    UINib *nib = [UINib nibWithNibName:@"BTXPeerTableViewCell" bundle:nil];
-    
-    // Register this NIB, which contains the cell
-    [self.tableView registerNib:nib
-         forCellReuseIdentifier:PEER_CELL_ID];
     BTXMeshClient* meshClient = [BTXMeshClient instance];
     meshClient.delegate = self;
 }
 
 -(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
 
@@ -81,7 +76,7 @@
     
     if(section == 1) {
         BTXMeshClient* meshClient = [BTXMeshClient instance];
-        return [meshClient connectedPeers].count + 1;
+        return [meshClient connectedPeers].count;
     }
     
     return 0;
@@ -94,7 +89,7 @@
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Style"];
         
         if(indexPath.section == 0 && indexPath.row == 0) {
-            cell.textLabel.text = @"#everyone";
+            cell.textLabel.text = @"# everyone";
         }
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -103,13 +98,12 @@
     }
     
     else if (indexPath.section == 1) {
-        BTXPeerTableViewCell *cell =
-            [tableView dequeueReusableCellWithIdentifier:PEER_CELL_ID
-                                            forIndexPath:indexPath];
+        UITableViewCell * cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:PEER_CELL_ID];
         
         BTXNode* node = [self getNodeByIndex:indexPath.row];
         
-        cell.node = node;
+        cell.textLabel.text = [NSString stringWithFormat:@"@ %@", node.displayName];
+        cell.detailTextLabel.text = node.mood;
         
         return cell;
     }
@@ -121,7 +115,7 @@
     if(indexPath.row == 0 && indexPath.section == 0) {
         // Navigate to the chat view for all channels;
         BTXChatViewController* chatViewController = [[BTXChatViewController alloc] init];
-        chatViewController.channel = @"#everyone";
+        chatViewController.channel = @"everyone";
         
         [self.navigationController pushViewController:chatViewController animated:true];
     }
@@ -137,7 +131,7 @@
 
 -(BTXNode*) getNodeByIndex: (NSInteger) index {
     BTXMeshClient* meshClient = [BTXMeshClient instance];
-    BTXNode* node = index == 0 ? [BTXNode getSelf] : [meshClient connectedPeers][index-1];
+    BTXNode* node = [meshClient connectedPeers][index];
     return node;
 }
 
