@@ -12,17 +12,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.mesh = [BTXMeshClient instance];
-    self.profile = [[BTXNode alloc] init];
-    self.profile.displayName = [[UIDevice currentDevice] name];
-    
-    UIDevice *device = [UIDevice currentDevice];
-    NSString  *currentDeviceId = [[device identifierForVendor]UUIDString];
-    
-    self.profile.identifier = currentDeviceId;
+    self.mesh = [BTXMeshClient sharedInstance];
     
     // Override point for customization after application launch.
     return YES;
+}
+
+-(void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"%@", notification);
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

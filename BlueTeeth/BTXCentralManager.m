@@ -259,6 +259,10 @@
     }
 }
 
+-(void) peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {
+    
+}
+
 // This method is called when we call [peripheral writeValue:forCharacteristic:type:]
 // If a write is successful, then we mark the data as sent and attempt to send the next chunk of data.
 // We continue to do this until the buffer has been cleared and all data has been sent.
